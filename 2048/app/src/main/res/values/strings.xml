@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">zy2048</string>
+    <string name="title_new">New</string>
+    <string name="title_continue">Continue</string>
+    <string name="title_rank">Rank</string>
+    <string name="title_about">About</string>
+</resources>
