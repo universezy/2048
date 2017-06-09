@@ -1,7 +1,17 @@
 <resources>
     <string name="app_name">zy2048</string>
-    <string name="title_new">New</string>
-    <string name="title_continue">Continue</string>
-    <string name="title_rank">Rank</string>
-    <string name="title_about">About</string>
+
+    <string name="menu_new">New</string>
+    <string name="menu_continue">Continue</string>
+    <string name="menu_rank">Rank</string>
+    <string name="menu_about">About</string>
+
+    <string name="game_title">2048\nZY</string>
+    <string name="game_score">SCORE</string>
+    <string name="game_best">BEST</string>
+
+    <string name="about_author">Zeng Yu</string>
+    <string name="about_copyright">Copyright Reserved 2017</string>
+    <string name="about_blog">http://blog.csdn.net/zy13608089849</string>
+    <string name="about_github">https://github.com/13608089849</string>
 </resources>

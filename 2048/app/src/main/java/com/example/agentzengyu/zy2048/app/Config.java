@@ -9,5 +9,5 @@ public class Config {
     public final static int CONTINUE = 1;
     public final static int RANK = 2;
     public final static int ABOUT = 3;
-
+    public final static String MODE = "MODE";
 }

@@ -24,7 +24,8 @@
         <service
             android:name=".service.ZY2048Service"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
     </application>
 
 </manifest>
