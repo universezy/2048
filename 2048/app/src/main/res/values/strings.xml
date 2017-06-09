@@ -10,8 +10,8 @@
     <string name="game_score">SCORE</string>
     <string name="game_best">BEST</string>
 
-    <string name="about_author">Zeng Yu</string>
-    <string name="about_copyright">Copyright Reserved 2017</string>
+    <string name="about_author">Zeng Yu\nUESTC</string>
+    <string name="about_copyright">Copyright © 2017-2017\nAll Rights Reserved</string>
     <string name="about_blog">http://blog.csdn.net/zy13608089849</string>
     <string name="about_github">https://github.com/13608089849</string>
 </resources>

@@ -14,7 +14,7 @@ import com.example.agentzengyu.zy2048.R;
  * Created by Agent ZengYu on 2017/6/9.
  */
 
-public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHolder> implements View.OnClickListener {
+public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHolder>  {
     private Context context;
     private LayoutInflater inflater;
     private Resources resources;
@@ -24,7 +24,6 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHol
     public AboutAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        resources = context.getResources();
         resources = context.getResources();
         setData();
     }
@@ -47,13 +46,8 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHol
         return Integer.MAX_VALUE;
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
     public void setData() {
-        icon = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
+        icon = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher};
         title = new String[]{resources.getString(R.string.about_author), resources.getString(R.string.about_copyright), resources.getString(R.string.about_blog), resources.getString(R.string.about_github)};
     }
 
@@ -67,10 +61,6 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHol
 
         public TextView getMtvAbout() {
             return mtvAbout;
-        }
-
-        public void setMtvAbout(TextView mtvAbout) {
-            this.mtvAbout = mtvAbout;
         }
     }
 }

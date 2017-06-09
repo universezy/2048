@@ -6,17 +6,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.agentzengyu.zy2048.R;
 import com.example.agentzengyu.zy2048.adapter.AboutAdapter;
 
 public class AboutActivity extends AppCompatActivity {
     private LinearLayoutManager manager;
-    private RecyclerView recyclerView;
     private AboutAdapter adapter;
     private Handler handler;
     private Runnable runnable;
+
+    private RecyclerView recyclerView;
+
     private int index = 0;
+    private boolean run = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,10 @@ public class AboutActivity extends AppCompatActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                recyclerView.scrollToPosition((index + 1) % 4);
-                index++;
+                if (run) {
+                    recyclerView.scrollToPosition(index + 1);
+                    index++;
+                }
                 startAutoShow();
             }
         };
@@ -48,9 +55,25 @@ public class AboutActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
         recyclerView.scrollToPosition(4);
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        run = false;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        run = true;
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void startAutoShow() {
-        handler.postDelayed(runnable,1000);
+            handler.postDelayed(runnable, 1000);
     }
 }

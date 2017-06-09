@@ -62,6 +62,8 @@ public class SquareView extends View {
             for (int y = 0; y < 4; y++) {
                 for (int x = 0; x < 4; x++) {
                     Square square = squares.get(y * 4 + x);
+                    int number = square.getNumber();
+                    if (number == 0) return;
 
                     //background
                     rectF.left = startX + padding * (x + 1) + x * squareSide;
@@ -72,7 +74,7 @@ public class SquareView extends View {
                     canvas.drawRect(rectF, paint);
 
                     //text
-                    String text = "" + square.getNumber();
+                    String text = "" + number;
                     int textHeight = squareSide / 3;
                     int textWidth = (int) paint.measureText(text, 0, text.length());
                     paint.setTextSize(textHeight);
@@ -85,8 +87,10 @@ public class SquareView extends View {
         }
     }
 
-    public void setSquares(ArrayList<Square> squares){
+    public void setSquares(ArrayList<Square> squares) {
+        if (squares == null) return;
         this.squares.clear();
         this.squares.addAll(squares);
+        this.invalidate();
     }
 }

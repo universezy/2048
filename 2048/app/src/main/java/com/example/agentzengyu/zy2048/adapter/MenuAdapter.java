@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.agentzengyu.zy2048.R;
+import com.example.agentzengyu.zy2048.activity.AboutActivity;
 import com.example.agentzengyu.zy2048.activity.GameActivity;
+import com.example.agentzengyu.zy2048.activity.RankActivity;
 import com.example.agentzengyu.zy2048.app.Config;
 
 /**
@@ -94,11 +96,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                             context.startActivity(intentContinue);
                             break;
                         case Config.RANK:
-                            Intent intentRank = new Intent(context, GameActivity.class);
+                            Intent intentRank = new Intent(context, RankActivity.class);
                             context.startActivity(intentRank);
                             break;
                         case Config.ABOUT:
-                            Intent intentAbout = new Intent(context, GameActivity.class);
+                            Intent intentAbout = new Intent(context, AboutActivity.class);
                             context.startActivity(intentAbout);
                             break;
                         default:
@@ -114,14 +116,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
         public Button getMbtnMenu() {
             return mbtnMenu;
-        }
-
-        public void setMivMenu(ImageView mivMenu) {
-            this.mivMenu = mivMenu;
-        }
-
-        public void setMbtnMenu(Button mbtnMenu) {
-            this.mbtnMenu = mbtnMenu;
         }
     }
 }

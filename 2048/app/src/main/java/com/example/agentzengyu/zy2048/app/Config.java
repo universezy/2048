@@ -9,5 +9,14 @@ public class Config {
     public final static int CONTINUE = 1;
     public final static int RANK = 2;
     public final static int ABOUT = 3;
+    public final static String GAME = "GAME";
+    public final static String SERVICE = "SERVICE";
     public final static String MODE = "MODE";
+    public final static String STATE = "STATE";
+    public final static String INITIALIZE = "INITIALIZE";
+    public final static String UPDATE = "UPDATE";
+    public final static String END = "END";
+    public final static String SCORE = "SCORE";
+    public final static String BEST = "BEST";
+    public final static String SQUARES = "SQUARES";
 }

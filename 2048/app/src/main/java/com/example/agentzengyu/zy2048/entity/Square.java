@@ -2,12 +2,14 @@ package com.example.agentzengyu.zy2048.entity;
 
 import android.graphics.Color;
 
+import java.io.Serializable;
+
 /**
  * Created by Agent ZengYu on 2017/6/9.
  */
 
-public class Square {
-    private int number = 2;
+public class Square implements Serializable {
+    private int number = 0;
     private int textColor = Color.parseColor("#000000");
     private int backgroundColor = Color.parseColor("#ffffff");
 
