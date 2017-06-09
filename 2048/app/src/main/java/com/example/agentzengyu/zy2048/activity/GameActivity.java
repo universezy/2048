@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.agentzengyu.zy2048.R;
@@ -22,7 +23,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView mtvScore, mtvBest;
     private SquareView msvGame;
     private int mode = 0;
-    private ArrayList<Square> squares = null;
+    private ArrayList<Square> squares = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,21 +70,27 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String state = intent.getStringExtra(Config.STATE);
+            Log.e("state", state);
             switch (state) {
                 case Config.INITIALIZE:
                     String BEST = intent.getStringExtra(Config.BEST);
                     squares.clear();
-                    squares = (ArrayList<Square>) intent.getSerializableExtra(Config.SQUARES);
-                    mtvBest.setText(BEST);
+                    squares.addAll((ArrayList<Square>) intent.getSerializableExtra(Config.SQUARES));
+                    if ("".equals(BEST)){
+                        mtvBest.setText("0");
+                    }else{
+                        mtvBest.setText(BEST);
+                    }
                     mtvScore.setText("0");
                     msvGame.setSquares(squares);
+                    msvGame.invalidate();
                     break;
                 case Config.UPDATE:
                     String SCORE = intent.getStringExtra(Config.SCORE);
-                    squares.clear();
-                    squares = (ArrayList<Square>) intent.getSerializableExtra(Config.SQUARES);
-                    mtvScore.setText(""+SCORE);
+                    squares.addAll((ArrayList<Square>) intent.getSerializableExtra(Config.SQUARES));
+                    mtvScore.setText("" + SCORE);
                     msvGame.setSquares(squares);
+                    msvGame.invalidate();
                     break;
                 case Config.END:
 

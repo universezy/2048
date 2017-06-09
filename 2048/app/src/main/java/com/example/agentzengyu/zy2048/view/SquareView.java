@@ -63,7 +63,6 @@ public class SquareView extends View {
                 for (int x = 0; x < 4; x++) {
                     Square square = squares.get(y * 4 + x);
                     int number = square.getNumber();
-                    if (number == 0) return;
 
                     //background
                     rectF.left = startX + padding * (x + 1) + x * squareSide;
@@ -91,6 +90,5 @@ public class SquareView extends View {
         if (squares == null) return;
         this.squares.clear();
         this.squares.addAll(squares);
-        this.invalidate();
     }
 }

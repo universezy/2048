@@ -56,21 +56,22 @@ public class ZY2048Service extends Service {
 
     public void newGame() {
         int[] temps = new int[16];
-        for(int i=0;i<16;i++){
-            temps[i]=0;
+        for (int i = 0; i < 16; i++) {
+            temps[i] = 0;
         }
-        for(int i=0;i<4;i++){
-            temps[i]=2;
+        for (int i = 0; i < 4; i++) {
+            temps[i] = 2;
         }
-        for(int i=0;i<16;i++){
+        for (int i = 0; i < 16; i++) {
             int index = new Random().nextInt(16);
             int temp = temps[i];
             temps[i] = temps[index];
             temps[index] = temp;
         }
-        for(int i=0;i<16;i++){
+        for (int i = 0; i < 16; i++) {
             Square square = new Square();
             square.setNumber(temps[i]);
+            squares.add(i, square);
         }
         startGame();
     }
@@ -120,7 +121,7 @@ public class ZY2048Service extends Service {
         }
     }
 
-    private void initGame(){
+    private void initGame() {
         JSONArray jsonArray = null;
         String jsonArrayString = "";
         records.clear();

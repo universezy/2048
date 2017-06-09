@@ -27,6 +27,8 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver android:name=".activity.GameActivity$GameReceiver"/>
+
     </application>
 
 </manifest>
