@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.agentzengyu.zy2048.app.ZY2048Application;
 import com.example.agentzengyu.zy2048.entity.Square;
 
 import java.util.ArrayList;
@@ -17,45 +19,46 @@ import java.util.ArrayList;
  */
 
 public class SquareView extends View {
+    private ZY2048Application application = null;
     private ArrayList<Square> squares = new ArrayList<>();
-    private Paint paint;
-    private RectF rectF;
     private int colorOutside = Color.parseColor("#ffffff");
     private int colorBackground = Color.parseColor("#9a9a9a");
-    private final int padding = 10;
+    private final int padding = 20;
     private final int textStrokeWidth = 3;
-    private int width, height;
-    private int viewSide, squareSide;
-    private int startX, startY;
+    private float downX = 0, downY = 0;
 
     public SquareView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
+        application = (ZY2048Application) context.getApplicationContext();
         setBackgroundColor(colorBackground);
-        setParams();
     }
 
-    private void setParams() {
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        rectF = new RectF();
-        width = this.getWidth();
-        height = this.getHeight();
-        viewSide = Math.min(width, height);
-        squareSide = (viewSide - 5 * padding) / 4;
-        startX = (width - viewSide) / 2;
-        startY = height - viewSide;
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        rectF.left = 0;
-        rectF.right = width;
-        rectF.top = 0;
-        rectF.bottom = height;
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        RectF rectF = new RectF();
+
+        float width = this.getWidth();
+        float height = this.getHeight();
+        float viewSide = Math.min(width, height);
+        float squareSide = (viewSide - 5 * padding) / 4;
+        float startX = (width - viewSide) / 2;
+        float startY = height - viewSide;
+
+        rectF.set(0, 0, width, height);
         paint.setColor(colorOutside);
+        canvas.drawRect(rectF, paint);
+
+        rectF.set(startX, startY, startX + viewSide, startY + viewSide);
+        paint.setColor(colorBackground);
         canvas.drawRect(rectF, paint);
 
         if (squares.size() == 16) {
@@ -73,17 +76,62 @@ public class SquareView extends View {
                     canvas.drawRect(rectF, paint);
 
                     //text
-                    String text = "" + number;
-                    int textHeight = squareSide / 3;
-                    int textWidth = (int) paint.measureText(text, 0, text.length());
+                    String text = String.valueOf(number);
+                    float textHeight = squareSide / 3;
+                    float textWidth = new Paint().measureText(text);
                     paint.setTextSize(textHeight);
                     paint.setStrokeWidth(textStrokeWidth);
                     paint.setStyle(Paint.Style.FILL);
                     paint.setColor(square.getTextColor());
-                    canvas.drawText(text, rectF.left + (squareSide - textWidth) / 2, rectF.top + (squareSide - textHeight) / 2, paint);
+                    canvas.drawText(text, rectF.left + (squareSide - textWidth) / 2 - textWidth, rectF.top + (squareSide + textHeight) / 2, paint);
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (squares.size() != 16) return false;
+        int eventCode = event.getAction();
+        switch (eventCode) {
+            case MotionEvent.ACTION_DOWN:
+                downX = event.getX();
+                downY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                float upX = event.getX();
+                float upY = event.getY();
+                float deltaX = upX - downX;
+                float deltaY = upY - downY;
+                //水平方向
+                if (Math.abs(deltaX) > 40 && Math.abs(deltaY) < 20) {
+                    //向右
+                    if (deltaX > 0) {
+                        application.getService().onRight();
+                    }
+                    //向左
+                    else if (deltaX < 0) {
+                        application.getService().onLeft();
+                    }
+                }
+                //垂直方向
+                else if (Math.abs(deltaY) > 40 && Math.abs(deltaX) < 20) {
+                    //向下
+                    if (deltaY > 0) {
+                        application.getService().onBottom();
+                    }
+                    //向上
+                    else if (deltaY < 0) {
+                        application.getService().onTop();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     public void setSquares(ArrayList<Square> squares) {

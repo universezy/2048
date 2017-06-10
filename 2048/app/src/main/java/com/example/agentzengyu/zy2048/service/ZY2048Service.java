@@ -27,6 +27,7 @@ public class ZY2048Service extends Service {
     private ArrayList<Square> squares = new ArrayList<>();
     private ArrayList<Record> records = new ArrayList<>();
     private String BEST = "";
+    private String SCORE = "";
 
     @Override
     public void onCreate() {
@@ -52,6 +53,38 @@ public class ZY2048Service extends Service {
     }
 
     public class ServiceBinder extends Binder {
+    }
+
+    public void onLeft(){
+
+
+
+
+        updateGame();
+    }
+
+    public void onRight(){
+
+
+
+
+        updateGame();
+    }
+
+    public void onTop(){
+
+
+
+
+        updateGame();
+    }
+
+    public void onBottom(){
+
+
+
+
+        updateGame();
     }
 
     public void newGame() {
@@ -167,6 +200,19 @@ public class ZY2048Service extends Service {
         intent.putExtra(Config.BEST, BEST);
         intent.putExtra(Config.SQUARES, squares);
         sendBroadcast(intent);
+    }
+
+    private void updateGame() {
+        Intent intent = new Intent(Config.GAME);
+        intent.putExtra(Config.STATE, Config.UPDATE);
+        intent.putExtra(Config.SCORE, SCORE);
+        intent.putExtra(Config.SQUARES, squares);
+        sendBroadcast(intent);
+        checkEnd();
+    }
+
+    private void checkEnd(){
+
     }
 
     public void saveRecord() {
