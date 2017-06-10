@@ -4,10 +4,12 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.example.agentzengyu.zy2048.app.Config;
 import com.example.agentzengyu.zy2048.app.ZY2048Application;
 import com.example.agentzengyu.zy2048.entity.Record;
+import com.example.agentzengyu.zy2048.entity.Score;
 import com.example.agentzengyu.zy2048.entity.Square;
 import com.google.gson.Gson;
 
@@ -26,8 +28,8 @@ public class ZY2048Service extends Service {
     private ZY2048Application application = null;
     private ArrayList<Square> squares = new ArrayList<>();
     private ArrayList<Record> records = new ArrayList<>();
-    private String BEST = "";
-    private String SCORE = "";
+    private int BEST = 0;
+    private int SCORE = 0;
 
     @Override
     public void onCreate() {
@@ -55,38 +57,96 @@ public class ZY2048Service extends Service {
     public class ServiceBinder extends Binder {
     }
 
-    public void onLeft(){
-
-
-
-
+    /**
+     * 向左
+     */
+    public void onLeft() {
+        Log.e("onLeft", "      --");
+        for (int y = 0; y < 4; y++) {
+            changeData(y * 4, y * 4 + 1, y * 4 + 2, y * 4 + 3);
+        }
         updateGame();
     }
 
-    public void onRight(){
-
-
-
-
+    /**
+     * 向右
+     */
+    public void onRight() {
+        Log.e("onRight", "      --");
+        for (int y = 0; y < 4; y++) {
+            changeData(y * 4 + 3, y * 4 + 2, y * 4 + 1, y * 4);
+        }
         updateGame();
     }
 
-    public void onTop(){
-
-
-
-
+    /**
+     * 向上
+     */
+    public void onTop() {
+        Log.e("onTop", "      --");
+        for (int x = 0; x < 4; x++) {
+            changeData(x, 4 * 1 + x, 4 * 2 + x, 4 * 3 + x);
+        }
         updateGame();
     }
 
-    public void onBottom(){
-
-
-
-
+    /**
+     * 向下
+     */
+    public void onBottom() {
+        Log.e("onBottom", "      --");
+        for (int x = 0; x < 4; x++) {
+            changeData(4 * 3 + x, 4 * 2 + x, 4 * 1 + x, x);
+        }
         updateGame();
     }
 
+    /**
+     * index4到index1分别为手势滑动方向上按顺序的下标
+     *
+     * @param index1
+     * @param index2
+     * @param index3
+     * @param index4
+     */
+    private void changeData(int index1, int index2, int index3, int index4) {
+        Log.e("changeData", squares.size()+"");
+        int[] indexs = new int[]{index1, index2, index3, index4};
+        //清零
+        for (int i = 0; i < 3; i++) {
+            if (squares.get(indexs[i]).getNumber() == 0) {
+                for (int j = i; j < 3; j++) {
+                    squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
+                }
+                squares.get(indexs[3]).setNumber(0);
+            }
+        }
+        //叠加
+//        for (int i = 0; i < 3; i++) {
+//            int score = squares.get(indexs[i]).getNumber();
+//            if (score == squares.get(indexs[i + 1]).getNumber()) {
+//                squares.get(indexs[i]).setNumber(score * 2);
+//                SCORE += score * 2;
+//                for (int j = i + 1; j < 3; j++) {
+//                    squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
+//                }
+//                squares.get(indexs[3]).setNumber(0);
+//            }
+//        }
+//        //清零
+//        for (int i = 0; i < 3; i++) {
+//            if (squares.get(indexs[i]).getNumber() == 0) {
+//                for (int j = i; j < 3; j++) {
+//                    squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
+//                }
+//                squares.get(indexs[3]).setNumber(0);
+//            }
+//        }
+    }
+
+    /**
+     * 新游戏
+     */
     public void newGame() {
         int[] temps = new int[16];
         for (int i = 0; i < 16; i++) {
@@ -109,11 +169,17 @@ public class ZY2048Service extends Service {
         startGame();
     }
 
+    /**
+     * 继续游戏
+     */
     public void continueGame() {
         initGame();
         startGame();
     }
 
+    /**
+     * 初始化记录
+     */
     private void initRecord() {
         JSONArray jsonArray = null;
         String jsonArrayString = "";
@@ -142,7 +208,7 @@ public class ZY2048Service extends Service {
                         Record record = new Gson().fromJson(jsonArray.get(i).toString(), Record.class);
                         records.add(record);
                     }
-                    BEST = "" + records.get(0).getScore();
+                    BEST = records.get(0).getScore();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -154,6 +220,9 @@ public class ZY2048Service extends Service {
         }
     }
 
+    /**
+     * 初始化游戏
+     */
     private void initGame() {
         JSONArray jsonArray = null;
         String jsonArrayString = "";
@@ -177,11 +246,13 @@ public class ZY2048Service extends Service {
             if (jsonArray != null) {
                 if (jsonArray.length() == 0) {
                     return;
-                } else {
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                } else if (jsonArray.length() == 17) {
+                    for (int i = 0; i < 16; i++) {
                         Square square = new Gson().fromJson(jsonArray.get(i).toString(), Square.class);
                         squares.add(square);
                     }
+                    Score score = new Gson().fromJson(jsonArray.get(16).toString(), Score.class);
+                    SCORE = score.getScore();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -193,15 +264,22 @@ public class ZY2048Service extends Service {
         }
     }
 
+    /**
+     * 开始游戏
+     */
     private void startGame() {
         initRecord();
         Intent intent = new Intent(Config.GAME);
         intent.putExtra(Config.STATE, Config.INITIALIZE);
         intent.putExtra(Config.BEST, BEST);
+        intent.putExtra(Config.SCORE, SCORE);
         intent.putExtra(Config.SQUARES, squares);
         sendBroadcast(intent);
     }
 
+    /**
+     * 更新游戏
+     */
     private void updateGame() {
         Intent intent = new Intent(Config.GAME);
         intent.putExtra(Config.STATE, Config.UPDATE);
@@ -211,10 +289,16 @@ public class ZY2048Service extends Service {
         checkEnd();
     }
 
-    private void checkEnd(){
+    /**
+     * 检查游戏是否结束
+     */
+    private void checkEnd() {
 
     }
 
+    /**
+     * 保存记录
+     */
     public void saveRecord() {
         File fileRecord = new File(getFilesDir(), "record.txt");
         try {
@@ -233,6 +317,9 @@ public class ZY2048Service extends Service {
         }
     }
 
+    /**
+     * 保存游戏
+     */
     public void saveGame() {
         File fileGame = new File(getFilesDir(), "game.txt");
         try {
@@ -240,6 +327,9 @@ public class ZY2048Service extends Service {
                 fileGame.createNewFile();
             FileOutputStream outputStreamGame = new FileOutputStream(fileGame);
             JSONArray jsonArrayGame = new JSONArray(squares);
+            Score score = new Score();
+            score.setScore(SCORE);
+            jsonArrayGame.put(jsonArrayGame.length(), score);
             byte[] bytesGame = jsonArrayGame.toString().getBytes();
             outputStreamGame.write(bytesGame);
             outputStreamGame.flush();
@@ -247,6 +337,8 @@ public class ZY2048Service extends Service {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

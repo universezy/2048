@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -105,8 +106,10 @@ public class SquareView extends View {
                 float upY = event.getY();
                 float deltaX = upX - downX;
                 float deltaY = upY - downY;
+                Log.e("deltaX", ""+deltaX);
+                Log.e("deltaY", ""+deltaY);
                 //水平方向
-                if (Math.abs(deltaX) > 40 && Math.abs(deltaY) < 20) {
+                if (Math.abs(deltaX) > 200 && Math.abs(deltaY) < 100) {
                     //向右
                     if (deltaX > 0) {
                         application.getService().onRight();
@@ -117,7 +120,7 @@ public class SquareView extends View {
                     }
                 }
                 //垂直方向
-                else if (Math.abs(deltaY) > 40 && Math.abs(deltaX) < 20) {
+                else if (Math.abs(deltaY) > 200 && Math.abs(deltaX) < 100) {
                     //向下
                     if (deltaY > 0) {
                         application.getService().onBottom();
@@ -138,5 +141,9 @@ public class SquareView extends View {
         if (squares == null) return;
         this.squares.clear();
         this.squares.addAll(squares);
+        Log.e("setSquares", squares.size()+"");
+        for (Square square : squares) {
+            Log.e("square", "" + square.getNumber());
+        }
     }
 }

@@ -73,22 +73,20 @@ public class GameActivity extends AppCompatActivity {
             Log.e("state", state);
             switch (state) {
                 case Config.INITIALIZE:
-                    String BEST = intent.getStringExtra(Config.BEST);
+                    int BEST_INITIALIZE = intent.getIntExtra(Config.BEST,0);
+                    int SCORE_INITIALIZE = intent.getIntExtra(Config.SCORE,0);
                     squares.clear();
                     squares.addAll((ArrayList<Square>) intent.getSerializableExtra(Config.SQUARES));
-                    if ("".equals(BEST)){
-                        mtvBest.setText("0");
-                    }else{
-                        mtvBest.setText(BEST);
-                    }
-                    mtvScore.setText("0");
+                    mtvBest.setText(String.valueOf(BEST_INITIALIZE));
+                    mtvScore.setText(String.valueOf(SCORE_INITIALIZE));
                     msvGame.setSquares(squares);
                     msvGame.invalidate();
                     break;
                 case Config.UPDATE:
-                    String SCORE = intent.getStringExtra(Config.SCORE);
+                    int SCORE_UPDATE = intent.getIntExtra(Config.SCORE,0);
+                    squares.clear();
                     squares.addAll((ArrayList<Square>) intent.getSerializableExtra(Config.SQUARES));
-                    mtvScore.setText("" + SCORE);
+                    mtvScore.setText(String.valueOf(SCORE_UPDATE));
                     msvGame.setSquares(squares);
                     msvGame.invalidate();
                     break;
