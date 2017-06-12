@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.agentzengyu.zy2048.R;
 import com.example.agentzengyu.zy2048.adapter.RankAdapter;
+import com.example.agentzengyu.zy2048.app.ZY2048Application;
 import com.example.agentzengyu.zy2048.entity.Record;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
  * 排行活动
  */
 public class RankActivity extends AppCompatActivity {
+    private ZY2048Application application = null;
     private LinearLayoutManager manager;
     private RecyclerView recyclerView;
     private RankAdapter adapter;
@@ -26,6 +28,7 @@ public class RankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
+        application = (ZY2048Application) getApplication();
         initVariable();
         initView();
         setData();
@@ -51,7 +54,11 @@ public class RankActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(0);
     }
 
+    /**
+     * 设置排名数据
+     */
     private void setData() {
-
+        records.addAll(application.getService().getRecords());
+        adapter.notifyDataSetChanged();
     }
 }

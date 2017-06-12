@@ -40,7 +40,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvScore"
+                android:id="@+id/tvScoreGameOver"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"

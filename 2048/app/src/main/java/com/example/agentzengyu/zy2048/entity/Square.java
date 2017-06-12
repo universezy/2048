@@ -2,6 +2,8 @@ package com.example.agentzengyu.zy2048.entity;
 
 import android.graphics.Color;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -11,7 +13,7 @@ import java.io.Serializable;
 /**
  * 方块实体类
  */
-public class Square implements Serializable {
+public class Square extends JSONObject implements Serializable {
     private int number = 0;
     private int textColor = Color.parseColor("#000000");
     private int backgroundColor = Color.parseColor("#ffffff");

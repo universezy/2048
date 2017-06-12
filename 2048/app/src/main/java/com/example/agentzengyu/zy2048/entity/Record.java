@@ -1,5 +1,7 @@
 package com.example.agentzengyu.zy2048.entity;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -9,7 +11,7 @@ import java.io.Serializable;
 /**
  * 排名记录实体类
  */
-public class Record implements Serializable {
+public class Record extends JSONObject implements Serializable {
     private String name = "";
     private int score = 0;
     private String time = "";

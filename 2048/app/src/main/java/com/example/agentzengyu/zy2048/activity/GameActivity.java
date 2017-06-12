@@ -61,7 +61,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化布局
      */
     private void initView() {
-        mtvScore = (TextView) findViewById(R.id.tvScore);
+        mtvScore = (TextView) findViewById(R.id.tvScoreGameOver);
         mtvBest = (TextView) findViewById(R.id.tvBest);
         msvGame = (SquareView) findViewById(R.id.svGame);
     }
@@ -70,6 +70,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      * 开始游戏
      */
     private void startGame() {
+        Log.e("mode", "" + mode);
         switch (mode) {
             case Config.CONTINUE:
                 continueGame();
@@ -95,10 +96,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         application.getService().continueGame();
     }
 
+    /**
+     * 显示无存档弹窗
+     */
     private void showNoArchive() {
         View view = getLayoutInflater().inflate(R.layout.popupwindow_no_archive, null);
-        view.findViewById(R.id.btnReturn).setOnClickListener(this);
-        view.findViewById(R.id.btnNew).setOnClickListener(this);
+        view.findViewById(R.id.btnReturnInNoArchive).setOnClickListener(this);
+        view.findViewById(R.id.btnNewInNoArchive).setOnClickListener(this);
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setTouchable(true);
@@ -117,12 +121,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * 显示游戏结束弹窗
+     */
     private void showGameOver() {
         View view = getLayoutInflater().inflate(R.layout.popupwindow_game_over, null);
-        view.findViewById(R.id.btnReturn).setOnClickListener(this);
-        view.findViewById(R.id.btnNew).setOnClickListener(this);
-        mtvPopupwindowScore = (TextView) view.findViewById(R.id.tvScore);
-        mtvPopupwindowScore.setText(SCORE);
+        view.findViewById(R.id.btnReturnInGameOver).setOnClickListener(this);
+        view.findViewById(R.id.btnNewInGameOver).setOnClickListener(this);
+        mtvPopupwindowScore = (TextView) view.findViewById(R.id.tvScoreInGameOver);
+        mtvPopupwindowScore.setText(String.valueOf(SCORE));
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setTouchable(true);
@@ -143,13 +150,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * 显示新记录弹窗
+     */
     private void showNewRecord() {
         View view = getLayoutInflater().inflate(R.layout.popupwindow_new_record, null);
-        view.findViewById(R.id.btnReturn).setOnClickListener(this);
-        view.findViewById(R.id.btnNew).setOnClickListener(this);
-        mtvPopupwindowScore = (TextView) view.findViewById(R.id.tvScore);
-        mtvPopupwindowScore.setText(SCORE);
-        metPopupwindowName = (EditText)view.findViewById(R.id.etName);
+        view.findViewById(R.id.btnReturnInNewRecord).setOnClickListener(this);
+        view.findViewById(R.id.btnNewInNewRecord).setOnClickListener(this);
+        mtvPopupwindowScore = (TextView) view.findViewById(R.id.tvScoreInNewRecord);
+        mtvPopupwindowScore.setText(String.valueOf(SCORE));
+        metPopupwindowName = (EditText) view.findViewById(R.id.etNameInNewRecord);
         popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setTouchable(true);
@@ -171,12 +181,27 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        application.getService().saveGame();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnReturn:
+            case R.id.btnReturnInNewRecord:
+                String nameReturn = metPopupwindowName.getText().toString().trim();
+                application.getService().updateRecord(nameReturn);
+            case R.id.btnReturnInNoArchive:
+            case R.id.btnReturnInGameOver:
+                popupWindow.dismiss();
                 finish();
                 break;
-            case R.id.btnNew:
+            case R.id.btnNewInNewRecord:
+                String nameNew = metPopupwindowName.getText().toString().trim();
+                application.getService().updateRecord(nameNew);
+            case R.id.btnNewInNoArchive:
+            case R.id.btnNewInGameOver:
                 popupWindow.dismiss();
                 mode = 0;
                 startGame();

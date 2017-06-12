@@ -1,5 +1,7 @@
 package com.example.agentzengyu.zy2048.entity;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -9,7 +11,7 @@ import java.io.Serializable;
 /**
  * 分数实体类
  */
-public class Score implements Serializable {
+public class Score extends JSONObject implements Serializable {
     private int score = 0;
 
     public void setScore(int score) {

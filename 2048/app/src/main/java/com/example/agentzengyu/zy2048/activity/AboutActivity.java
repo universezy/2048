@@ -23,7 +23,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private int index = 0;
+    private int index = 7;
     private boolean run = true;
 
     @Override
@@ -33,6 +33,13 @@ public class AboutActivity extends AppCompatActivity {
         initVariable();
         initView();
         startAutoShow();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        run = false;
+        handler.removeCallbacks(runnable);
     }
 
     /**
@@ -47,7 +54,7 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (run) {
-                    recyclerView.scrollToPosition(index + 1);
+                    recyclerView.scrollToPosition(index);
                     index++;
                 }
                 startAutoShow();
@@ -67,7 +74,7 @@ public class AboutActivity extends AppCompatActivity {
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()){
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         run = false;
                         break;
@@ -86,6 +93,6 @@ public class AboutActivity extends AppCompatActivity {
      * recyclerView自动播放
      */
     private void startAutoShow() {
-            handler.postDelayed(runnable, 1000);
+        handler.postDelayed(runnable, 1000);
     }
 }

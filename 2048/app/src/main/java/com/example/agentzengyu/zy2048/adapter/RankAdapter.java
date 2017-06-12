@@ -24,7 +24,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
     private LayoutInflater inflater;
     private ArrayList<Record> records;
 
-    public RankAdapter(Context context,ArrayList<Record> records) {
+    public RankAdapter(Context context, ArrayList<Record> records) {
         this.context = context;
         this.records = records;
         inflater = LayoutInflater.from(context);
@@ -61,7 +61,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
 
             mtvRank = (TextView) itemView.findViewById(R.id.tvRank);
             mtvName = (TextView) itemView.findViewById(R.id.tvName);
-            mtvScore = (TextView) itemView.findViewById(R.id.tvScore);
+            mtvScore = (TextView) itemView.findViewById(R.id.tvScoreGameOver);
             mtvTime = (TextView) itemView.findViewById(R.id.tvTime);
         }
 

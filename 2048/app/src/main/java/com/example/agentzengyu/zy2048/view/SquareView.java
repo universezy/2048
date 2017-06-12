@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -113,8 +112,6 @@ public class SquareView extends View {
                 float upY = event.getY();
                 float deltaX = upX - downX;
                 float deltaY = upY - downY;
-                Log.e("deltaX", "" + deltaX);
-                Log.e("deltaY", "" + deltaY);
                 //水平方向
                 if (Math.abs(deltaX) > 200 && Math.abs(deltaY) < 100) {
                     //向右

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
-    android:layout_height="170dp"
+    android:layout_width="240dp"
+    android:layout_height="230dp"
     android:background="@drawable/popupwindow_corner"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -9,12 +9,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/popupwindow_new_record" />
+        android:text="@string/popupwindow_new_record"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -24,21 +26,23 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/popupwindow_score" />
+            android:text="@string/popupwindow_score"
+            android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tvScore"
+            android:id="@+id/tvScoreInNewRecord"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -48,37 +52,39 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/popupwindow_name" />
+            android:text="@string/popupwindow_name"
+            android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etNameInNewRecord"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center_horizontal|bottom"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnReturn"
+            android:id="@+id/btnReturnInNewRecord"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:layout_weight="1"
             android:background="@mipmap/ic_launcher"
             android:text="Return" />
 
         <Button
-            android:id="@+id/btnNew"
+            android:id="@+id/btnNewInNewRecord"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:layout_weight="1"
             android:background="@mipmap/ic_launcher"
             android:text="Again" />
