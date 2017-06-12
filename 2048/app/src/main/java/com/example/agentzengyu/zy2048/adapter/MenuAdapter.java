@@ -20,6 +20,9 @@ import com.example.agentzengyu.zy2048.app.Config;
  * Created by Agent ZengYu on 2017/6/8.
  */
 
+/**
+ * 菜单页面适配器
+ */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> implements View.OnClickListener {
     private Context context;
     private LayoutInflater inflater;
@@ -60,19 +63,32 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             listener.OnItemClick(v);
     }
 
+    /**
+     * item点击监听
+     * @param listener
+     */
     public void setItemClickListener(OnRecycleViewItemClickListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * item点击监听接口
+     */
     public interface OnRecycleViewItemClickListener {
         void OnItemClick(View view);
     }
 
+    /**
+     * 设置数据
+     */
     public void setData() {
         icon = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
         title = new String[]{resources.getString(R.string.menu_new), resources.getString(R.string.menu_continue), resources.getString(R.string.menu_rank), resources.getString(R.string.menu_about)};
     }
 
+    /**
+     * 菜单页面容器
+     */
     public class MenuViewHolder extends RecyclerView.ViewHolder {
         private ImageView mivMenu;
         private Button mbtnMenu;

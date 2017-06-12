@@ -12,6 +12,9 @@ import android.view.View;
 import com.example.agentzengyu.zy2048.R;
 import com.example.agentzengyu.zy2048.adapter.AboutAdapter;
 
+/**
+ * 关于应用
+ */
 public class AboutActivity extends AppCompatActivity {
     private LinearLayoutManager manager;
     private AboutAdapter adapter;
@@ -32,6 +35,9 @@ public class AboutActivity extends AppCompatActivity {
         startAutoShow();
     }
 
+    /**
+     * 初始化变量
+     */
     private void initVariable() {
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -49,6 +55,9 @@ public class AboutActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * 初始化布局
+     */
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rvAbout);
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
@@ -73,6 +82,9 @@ public class AboutActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * recyclerView自动播放
+     */
     private void startAutoShow() {
             handler.postDelayed(runnable, 1000);
     }

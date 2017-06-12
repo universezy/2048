@@ -19,6 +19,9 @@ import java.util.ArrayList;
  * Created by Agent ZengYu on 2017/6/9.
  */
 
+/**
+ * 方块界面视图
+ */
 public class SquareView extends View {
     private ZY2048Application application = null;
     private ArrayList<Square> squares = new ArrayList<>();
@@ -54,14 +57,17 @@ public class SquareView extends View {
         float startX = (width - viewSide) / 2;
         float startY = height - viewSide;
 
+        //整个视图背景
         rectF.set(0, 0, width, height);
         paint.setColor(colorOutside);
         canvas.drawRect(rectF, paint);
 
+        //方块界面背景
         rectF.set(startX, startY, startX + viewSide, startY + viewSide);
         paint.setColor(colorBackground);
         canvas.drawRect(rectF, paint);
 
+        //小方块
         if (squares.size() == 16) {
             for (int y = 0; y < 4; y++) {
                 for (int x = 0; x < 4; x++) {
@@ -77,6 +83,7 @@ public class SquareView extends View {
                     canvas.drawRect(rectF, paint);
 
                     //text
+                    if (number == 0) continue;
                     String text = String.valueOf(number);
                     float textHeight = squareSide / 3;
                     float textWidth = new Paint().measureText(text);
@@ -106,8 +113,8 @@ public class SquareView extends View {
                 float upY = event.getY();
                 float deltaX = upX - downX;
                 float deltaY = upY - downY;
-                Log.e("deltaX", ""+deltaX);
-                Log.e("deltaY", ""+deltaY);
+                Log.e("deltaX", "" + deltaX);
+                Log.e("deltaY", "" + deltaY);
                 //水平方向
                 if (Math.abs(deltaX) > 200 && Math.abs(deltaY) < 100) {
                     //向右
@@ -137,13 +144,14 @@ public class SquareView extends View {
         return true;
     }
 
+    /**
+     * 设置方块数据
+     *
+     * @param squares 方块集
+     */
     public void setSquares(ArrayList<Square> squares) {
         if (squares == null) return;
         this.squares.clear();
         this.squares.addAll(squares);
-        Log.e("setSquares", squares.size()+"");
-        for (Square square : squares) {
-            Log.e("square", "" + square.getNumber());
-        }
     }
 }

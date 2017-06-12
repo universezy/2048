@@ -6,6 +6,9 @@ import java.io.Serializable;
  * Created by Agent ZengYu on 2017/6/10.
  */
 
+/**
+ * 分数实体类
+ */
 public class Score implements Serializable {
     private int score = 0;
 

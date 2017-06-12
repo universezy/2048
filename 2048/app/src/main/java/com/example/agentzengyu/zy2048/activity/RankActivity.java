@@ -12,6 +12,9 @@ import com.example.agentzengyu.zy2048.entity.Record;
 
 import java.util.ArrayList;
 
+/**
+ * 排行活动
+ */
 public class RankActivity extends AppCompatActivity {
     private LinearLayoutManager manager;
     private RecyclerView recyclerView;
@@ -28,12 +31,18 @@ public class RankActivity extends AppCompatActivity {
         setData();
     }
 
+    /**
+     * 初始化变量
+     */
     private void initVariable() {
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         adapter = new RankAdapter(this, records);
     }
 
+    /**
+     * 初始化布局
+     */
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rvRank);
         new PagerSnapHelper().attachToRecyclerView(recyclerView);

@@ -16,6 +16,9 @@ import java.util.ArrayList;
  * Created by Agent ZengYu on 2017/6/9.
  */
 
+/**
+ * 排名页面适配器
+ */
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder> {
     private Context context;
     private LayoutInflater inflater;
@@ -47,6 +50,9 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder
         return records.size();
     }
 
+    /**
+     * 排名页面容器
+     */
     public class RankViewHolder extends RecyclerView.ViewHolder {
         private TextView mtvRank, mtvName, mtvScore, mtvTime;
 

@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * 游戏后台服务,处理游戏数据
+ */
 public class ZY2048Service extends Service {
     private ZY2048Application application = null;
     private ArrayList<Square> squares = new ArrayList<>();
@@ -63,7 +66,7 @@ public class ZY2048Service extends Service {
     public void onLeft() {
         Log.e("onLeft", "      --");
         for (int y = 0; y < 4; y++) {
-            changeData(y * 4, y * 4 + 1, y * 4 + 2, y * 4 + 3);
+            changeData(y * 4, y * 4 + 1, y * 4 + 2, y * 4 + 3, true, true);
         }
         updateGame();
     }
@@ -74,7 +77,7 @@ public class ZY2048Service extends Service {
     public void onRight() {
         Log.e("onRight", "      --");
         for (int y = 0; y < 4; y++) {
-            changeData(y * 4 + 3, y * 4 + 2, y * 4 + 1, y * 4);
+            changeData(y * 4 + 3, y * 4 + 2, y * 4 + 1, y * 4, true, true);
         }
         updateGame();
     }
@@ -85,7 +88,7 @@ public class ZY2048Service extends Service {
     public void onTop() {
         Log.e("onTop", "      --");
         for (int x = 0; x < 4; x++) {
-            changeData(x, 4 * 1 + x, 4 * 2 + x, 4 * 3 + x);
+            changeData(x, 4 * 1 + x, 4 * 2 + x, 4 * 3 + x, true, true);
         }
         updateGame();
     }
@@ -96,12 +99,13 @@ public class ZY2048Service extends Service {
     public void onBottom() {
         Log.e("onBottom", "      --");
         for (int x = 0; x < 4; x++) {
-            changeData(4 * 3 + x, 4 * 2 + x, 4 * 1 + x, x);
+            changeData(4 * 3 + x, 4 * 2 + x, 4 * 1 + x, x, true, true);
         }
         updateGame();
     }
 
     /**
+     * 改变单行或单列的四个数据
      * index4到index1分别为手势滑动方向上按顺序的下标
      *
      * @param index1
@@ -109,39 +113,38 @@ public class ZY2048Service extends Service {
      * @param index3
      * @param index4
      */
-    private void changeData(int index1, int index2, int index3, int index4) {
-        Log.e("changeData", squares.size()+"");
+    private void changeData(int index1, int index2, int index3, int index4, boolean clearZero, boolean addNumber) {
+        Log.e("changeData", squares.size() + "");
         int[] indexs = new int[]{index1, index2, index3, index4};
-        //清零
-        for (int i = 0; i < 3; i++) {
-            if (squares.get(indexs[i]).getNumber() == 0) {
-                for (int j = i; j < 3; j++) {
-                    squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
+        //清零,进行多次直到无清零操作
+        if (clearZero) {
+            clearZero = false;
+            for (int i = 0; i < 3; i++) {
+                if (squares.get(indexs[i]).getNumber() == 0) {
+                    clearZero = true;
+                    for (int j = i; j < 3; j++) {
+                        squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
+                    }
+                    squares.get(indexs[3]).setNumber(0);
                 }
-                squares.get(indexs[3]).setNumber(0);
             }
         }
-        //叠加
-//        for (int i = 0; i < 3; i++) {
-//            int score = squares.get(indexs[i]).getNumber();
-//            if (score == squares.get(indexs[i + 1]).getNumber()) {
-//                squares.get(indexs[i]).setNumber(score * 2);
-//                SCORE += score * 2;
-//                for (int j = i + 1; j < 3; j++) {
-//                    squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
-//                }
-//                squares.get(indexs[3]).setNumber(0);
-//            }
-//        }
-//        //清零
-//        for (int i = 0; i < 3; i++) {
-//            if (squares.get(indexs[i]).getNumber() == 0) {
-//                for (int j = i; j < 3; j++) {
-//                    squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
-//                }
-//                squares.get(indexs[3]).setNumber(0);
-//            }
-//        }
+        //叠加,只进行一次
+        if (addNumber) {
+            addNumber = false;
+            for (int i = 0; i < 3; i++) {
+                int score = squares.get(indexs[i]).getNumber();
+                if (score == squares.get(indexs[i + 1]).getNumber()) {
+                    squares.get(indexs[i]).setNumber(score * 2);
+                    SCORE += score * 2;
+                    for (int j = i + 1; j < 3; j++) {
+                        squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
+                    }
+                    squares.get(indexs[3]).setNumber(0);
+                }
+            }
+        }
+        changeData(index1, index2, index3, index4, clearZero, addNumber);
     }
 
     /**

@@ -14,6 +14,9 @@ import com.example.agentzengyu.zy2048.R;
  * Created by Agent ZengYu on 2017/6/9.
  */
 
+/**
+ * 关于页面适配器
+ */
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHolder>  {
     private Context context;
     private LayoutInflater inflater;
@@ -46,11 +49,17 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHol
         return Integer.MAX_VALUE;
     }
 
+    /**
+     * 设置数据
+     */
     public void setData() {
         icon = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher};
         title = new String[]{resources.getString(R.string.about_author), resources.getString(R.string.about_copyright), resources.getString(R.string.about_blog), resources.getString(R.string.about_github)};
     }
 
+    /**
+     * 关于页面布局容器
+     */
     public class AboutViewHolder extends RecyclerView.ViewHolder {
         private TextView mtvAbout;
 

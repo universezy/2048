@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">zy2048</string>
+    <string name="app_name">ZY2048</string>
 
     <string name="menu_new">New</string>
     <string name="menu_continue">Continue</string>
@@ -10,8 +10,14 @@
     <string name="game_score">SCORE</string>
     <string name="game_best">BEST</string>
 
-    <string name="about_author">Zeng Yu\nUESTC</string>
-    <string name="about_copyright">Copyright © 2017-2017\nAll Rights Reserved</string>
-    <string name="about_blog">http://blog.csdn.net/zy13608089849</string>
-    <string name="about_github">https://github.com/13608089849</string>
+    <string name="about_author">Author\nZeng Yu\nUESTC</string>
+    <string name="about_copyright">Copyright\n©2017\nAll Rights Reserved</string>
+    <string name="about_blog">Blog\nhttp://blog.csdn.net/zy13608089849</string>
+    <string name="about_github">Github\nhttps://github.com/13608089849</string>
+
+    <string name="popupwindow_no_archive">No Archive</string>
+    <string name="popupwindow_game_over">Game Over</string>
+    <string name="popupwindow_new_record">New Record</string>
+    <string name="popupwindow_score">Your Score</string>
+    <string name="popupwindow_name">Your Name</string>
 </resources>

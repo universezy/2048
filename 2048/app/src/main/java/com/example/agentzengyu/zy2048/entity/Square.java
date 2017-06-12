@@ -8,6 +8,9 @@ import java.io.Serializable;
  * Created by Agent ZengYu on 2017/6/9.
  */
 
+/**
+ * 方块实体类
+ */
 public class Square implements Serializable {
     private int number = 0;
     private int textColor = Color.parseColor("#000000");

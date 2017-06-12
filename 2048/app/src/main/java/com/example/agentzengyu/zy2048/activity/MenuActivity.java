@@ -17,6 +17,9 @@ import com.example.agentzengyu.zy2048.adapter.MenuAdapter;
 import com.example.agentzengyu.zy2048.app.ZY2048Application;
 import com.example.agentzengyu.zy2048.service.ZY2048Service;
 
+/**
+ * 菜单页面
+ */
 public class MenuActivity extends AppCompatActivity {
     private ZY2048Application application = null;
     protected ZY2048Service.ServiceBinder binder;
@@ -40,6 +43,9 @@ public class MenuActivity extends AppCompatActivity {
         unbindService(connection);
     }
 
+    /**
+     * 初始化变量
+     */
     private void initVariable() {
         application = (ZY2048Application)getApplication();
         application.addActivity(this);
@@ -48,6 +54,9 @@ public class MenuActivity extends AppCompatActivity {
         adapter = new MenuAdapter(this);
     }
 
+    /**
+     * 初始化布局
+     */
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.rvMenu);
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
