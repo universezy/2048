@@ -46,7 +46,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private EditText metPopupwindowName;
     private int mode = 0;
     private int SCORE = 0, BEST = 0;
-    private int index = 7;
+    private int index = 5;
     private boolean run = true;
     private ArrayList<Square> squares = new ArrayList<>();
 
@@ -118,7 +118,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(3);
+        recyclerView.scrollToPosition(4);
         msvGame = (SquareView) findViewById(R.id.svGame);
     }
 

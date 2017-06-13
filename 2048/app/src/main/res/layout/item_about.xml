@@ -16,5 +16,6 @@
         android:gravity="center"
         android:src="@mipmap/ic_launcher"
         android:text="test"
+        android:textIsSelectable="true"
         android:textSize="18sp" />
 </LinearLayout>
