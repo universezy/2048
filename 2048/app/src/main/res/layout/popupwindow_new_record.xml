@@ -2,16 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="280dp"
-    android:background="@drawable/popupwindow_corner"
+    android:background="@mipmap/newrecord"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/popupwindow_new_record"
+        android:textColor="@color/darkcyan"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -27,6 +29,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/popupwindow_score"
+            android:textColor="@color/darkcyan"
             android:textSize="15sp" />
 
         <TextView
@@ -36,6 +39,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="@color/darkcyan"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -53,6 +57,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/popupwindow_name"
+            android:textColor="@color/darkcyan"
             android:textSize="15sp" />
 
         <EditText
@@ -62,6 +67,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center_horizontal|bottom"
+            android:textColor="@color/darkcyan"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -69,7 +75,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <Button
             android:id="@+id/btnReturnInNewRecord"
@@ -77,8 +85,9 @@
             android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:background="@mipmap/ic_launcher"
-            android:text="Return" />
+            android:background="@drawable/button"
+            android:text="Return"
+            android:textColor="@color/darkcyan" />
 
         <Button
             android:id="@+id/btnNewInNewRecord"
@@ -86,7 +95,8 @@
             android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:background="@mipmap/ic_launcher"
-            android:text="Again" />
+            android:background="@drawable/button"
+            android:text="Again"
+            android:textColor="@color/darkcyan" />
     </LinearLayout>
 </LinearLayout>

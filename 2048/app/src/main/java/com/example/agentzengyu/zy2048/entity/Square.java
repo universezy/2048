@@ -15,8 +15,8 @@ import java.io.Serializable;
  */
 public class Square extends JSONObject implements Serializable {
     private int number = 0;
-    private int textColor = Color.parseColor("#000000");
-    private int backgroundColor = Color.parseColor("#ffffff");
+    private int textColor = Color.parseColor("#6a5acd");
+    private int backgroundColor = Color.parseColor("#ffd700");
 
     public void setNumber(int number) {
         this.number = number;

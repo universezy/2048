@@ -7,6 +7,9 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.agentzengyu.zy2048.R;
+import com.example.agentzengyu.zy2048.adapter.MessageAdapter;
 import com.example.agentzengyu.zy2048.app.Config;
 import com.example.agentzengyu.zy2048.app.ZY2048Application;
 import com.example.agentzengyu.zy2048.entity.Square;
@@ -29,16 +33,21 @@ import java.util.ArrayList;
  */
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private ZY2048Application application = null;
+    private LinearLayoutManager manager;
+    private MessageAdapter adapter;
     private GameReceiver receiver;
-    private Handler handler;
-    private Runnable runnableGameOver,runnableNewRecord;
+    private Handler handlerGame, handlerMessage;
+    private Runnable runnableGameOver, runnableNewRecord, runnableMessage;
     private TextView mtvScore, mtvBest;
-    private TextView mtvPopupwindowScore;
-    private EditText metPopupwindowName;
+    private RecyclerView recyclerView;
     private SquareView msvGame;
     private PopupWindow popupWindow;
+    private TextView mtvPopupwindowScore;
+    private EditText metPopupwindowName;
     private int mode = 0;
     private int SCORE = 0, BEST = 0;
+    private int index = 7;
+    private boolean run = true;
     private ArrayList<Square> squares = new ArrayList<>();
 
     @Override
@@ -46,35 +55,35 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         mode = getIntent().getIntExtra(Config.MODE, Config.NEW);
-        initView();
         initVariable();
+        initView();
         startGame();
+        startAutoShow();
     }
 
     @Override
     public void onDestroy() {
         unregisterReceiver(receiver);
         super.onDestroy();
-    }
-
-    /**
-     * 初始化布局
-     */
-    private void initView() {
-        mtvScore = (TextView) findViewById(R.id.tvScoreGameOver);
-        mtvBest = (TextView) findViewById(R.id.tvBest);
-        msvGame = (SquareView) findViewById(R.id.svGame);
+        run = false;
+        handlerGame.removeCallbacks(runnableNewRecord);
+        handlerGame.removeCallbacks(runnableGameOver);
+        handlerMessage.removeCallbacks(runnableMessage);
     }
 
     /**
      * 初始化变量
      */
-    private void initVariable(){
+    private void initVariable() {
         application = (ZY2048Application) getApplication();
+        manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        adapter = new MessageAdapter(this);
         receiver = new GameReceiver();
         IntentFilter filter = new IntentFilter(Config.GAME);
         registerReceiver(receiver, filter);
-        handler = new Handler();
+        handlerGame = new Handler();
+        handlerMessage = new Handler();
         runnableGameOver = new Runnable() {
             @Override
             public void run() {
@@ -87,6 +96,37 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 showNewRecord();
             }
         };
+        runnableMessage = new Runnable() {
+            @Override
+            public void run() {
+                if (run) {
+                    recyclerView.scrollToPosition(index);
+                    index++;
+                }
+                startAutoShow();
+            }
+        };
+    }
+
+    /**
+     * 初始化布局
+     */
+    private void initView() {
+        mtvScore = (TextView) findViewById(R.id.tvScoreGameOver);
+        mtvBest = (TextView) findViewById(R.id.tvBest);
+        recyclerView = (RecyclerView) findViewById(R.id.rvMessage);
+        new PagerSnapHelper().attachToRecyclerView(recyclerView);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+        recyclerView.scrollToPosition(3);
+        msvGame = (SquareView) findViewById(R.id.svGame);
+    }
+
+    /**
+     * recyclerView自动播放
+     */
+    private void startAutoShow() {
+        handlerMessage.postDelayed(runnableMessage, 10000);
     }
 
     /**
@@ -266,10 +306,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     msvGame.invalidate();
                     break;
                 case Config.GAMEOVER:
-                    handler.postDelayed(runnableGameOver,1000);
+                    handlerGame.postDelayed(runnableGameOver, 1000);
                     break;
                 case Config.NEWRECORD:
-                    handler.postDelayed(runnableNewRecord,1000);
+                    handlerGame.postDelayed(runnableNewRecord, 1000);
                     break;
                 default:
                     break;

@@ -2,7 +2,6 @@ package com.example.agentzengyu.zy2048.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
@@ -27,8 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
-import static android.graphics.Color.parseColor;
 
 /**
  * 游戏后台服务,处理游戏数据
@@ -206,8 +203,6 @@ public class ZY2048Service extends Service {
                         squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
                     }
                     squares.get(indexs[3]).setNumber(0);
-                    squares.get(indexs[3]).setTextColor(selectTextColor(score));
-                    squares.get(indexs[3]).setBackgroundColor(selectBackgroundColor(score));
                 }
             }
         }
@@ -424,7 +419,7 @@ public class ZY2048Service extends Service {
         }
         if (end) {
             Intent intent = new Intent(Config.GAME);
-            if (SCORE > LOWEST || records.size() < 16) {
+            if (SCORE > LOWEST || records.size() < 10) {
                 intent.putExtra(Config.STATE, Config.NEWRECORD);
             } else {
                 intent.putExtra(Config.STATE, Config.GAMEOVER);
@@ -473,8 +468,8 @@ public class ZY2048Service extends Service {
             for (int j = index; j < records.size(); j++) {
                 records.get(j).setRank(j + 1);
             }
-            if (records.size() > 16) {
-                records.remove(16);
+            if (records.size() > 10) {
+                records.remove(10);
             }
             saveRecord();
         }
@@ -548,86 +543,5 @@ public class ZY2048Service extends Service {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    private int selectBackgroundColor(int number) {
-        int backgroundColor = parseColor("#ffd700");
-        switch (number) {
-            case 0:
-                backgroundColor = Color.parseColor("#ffffff");
-                break;
-            case 2:
-                backgroundColor = Color.parseColor("#ffffbf");
-                break;
-            case 4:
-                backgroundColor = Color.parseColor("#ffff7f");
-                break;
-            case 8:
-                backgroundColor = Color.parseColor("#ffff3f");
-                break;
-            case 16:
-                backgroundColor = Color.parseColor("#ffff00");
-                break;
-            case 32:
-                backgroundColor = Color.parseColor("#ffbf00");
-                break;
-            case 64:
-                backgroundColor = Color.parseColor("#ff7f00");
-                break;
-            case 128:
-                backgroundColor = Color.parseColor("#ff3f00");
-                break;
-            case 256:
-                backgroundColor = Color.parseColor("#ff0000");
-                break;
-            case 512:
-                backgroundColor = Color.parseColor("#bf0000");
-                break;
-            case 1024:
-                backgroundColor = Color.parseColor("#7f0000");
-                break;
-            case 2048:
-                backgroundColor = Color.parseColor("#3f0000");
-                break;
-            case 4096:
-                backgroundColor = Color.parseColor("#000000");
-                break;
-            default:
-                break;
-        }
-        return backgroundColor;
-    }
-
-    private int selectTextColor(int number) {
-        int textCoor = parseColor("#000000");
-        switch (number) {
-            case 0:
-                textCoor = parseColor("#ffffff");
-                break;
-            case 2:
-            case 4:
-                break;
-            case 8:
-            case 16:
-                textCoor = parseColor("#ffffff");
-                break;
-            case 32:
-            case 64:
-                break;
-            case 128:
-            case 256:
-                textCoor = parseColor("#ffffff");
-                break;
-            case 512:
-            case 1024:
-                break;
-            case 2048:
-            case 4096:
-                textCoor = parseColor("#ffffff");
-                break;
-            default:
-                break;
-        }
-        return textCoor;
     }
 }

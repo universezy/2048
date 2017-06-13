@@ -53,7 +53,7 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHol
      * 设置数据
      */
     public void setData() {
-        icon = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+        icon = new int[]{R.mipmap.uestc, R.mipmap.logo, R.mipmap.csdn, R.mipmap.github};
         title = new String[]{resources.getString(R.string.about_author), resources.getString(R.string.about_copyright), resources.getString(R.string.about_blog), resources.getString(R.string.about_github)};
     }
 

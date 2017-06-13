@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="200dp"
-    android:background="@drawable/popupwindow_corner"
+    android:background="@mipmap/main"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -12,13 +12,16 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/popupwindow_no_archive"
+        android:textColor="@color/darkblue"
         android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <Button
             android:id="@+id/btnReturnInNoArchive"
@@ -26,8 +29,9 @@
             android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:background="@mipmap/ic_launcher"
-            android:text="Return" />
+            android:background="@drawable/button"
+            android:text="Return"
+            android:textColor="@color/darkblue" />
 
         <Button
             android:id="@+id/btnNewInNoArchive"
@@ -35,7 +39,8 @@
             android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:background="@mipmap/ic_launcher"
-            android:text="New" />
+            android:background="@drawable/button"
+            android:text="New"
+            android:textColor="@color/darkblue" />
     </LinearLayout>
 </LinearLayout>

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/background"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="50dp">
@@ -12,17 +13,18 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:src="@mipmap/ic_launcher"
-        app:border_color="#ccc"
+        app:border_color="#80000000"
         app:border_overlay="false"
-        app:border_width="2dp" />
+        app:border_width="5dp" />
 
     <Button
         android:id="@+id/btnMenu"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginTop="80dp"
-        android:background="#10000000"
+        android:background="@drawable/button"
         android:text=""
+        android:textColor="#6a5acd"
         android:textSize="20sp" />
 
 </LinearLayout>

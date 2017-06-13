@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class SquareView extends View {
     private ZY2048Application application = null;
     private ArrayList<Square> squares = new ArrayList<>();
-    private int colorOutside = Color.parseColor("#ffffff");
+    private int colorOutside = Color.parseColor("#00000000");
     private int colorBackground = Color.parseColor("#9a9a9a");
     private final int padding = 20;
     private final int textStrokeWidth = 3;
@@ -33,19 +33,19 @@ public class SquareView extends View {
     public SquareView(Context context){
         super(context);
         application = (ZY2048Application) context.getApplicationContext();
-        setBackgroundColor(colorBackground);
+        setBackgroundColor(colorOutside);
     }
 
     public SquareView(Context context, AttributeSet attrs) {
         super(context, attrs);
         application = (ZY2048Application) context.getApplicationContext();
-        setBackgroundColor(colorBackground);
+        setBackgroundColor(colorOutside);
     }
 
     public SquareView(Context context, AttributeSet attrs, int defStyle){
         super(context,attrs,defStyle);
         application = (ZY2048Application) context.getApplicationContext();
-        setBackgroundColor(colorBackground);
+        setBackgroundColor(colorOutside);
     }
 
     @Override

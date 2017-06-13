@@ -20,9 +20,7 @@ public class AboutActivity extends AppCompatActivity {
     private AboutAdapter adapter;
     private Handler handler;
     private Runnable runnable;
-
     private RecyclerView recyclerView;
-
     private int index = 7;
     private boolean run = true;
 

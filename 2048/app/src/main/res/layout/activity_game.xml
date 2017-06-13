@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/background"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context="com.example.agentzengyu.zy2048.activity.GameActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
-        android:layout_weight="4"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
         <TextView
@@ -20,6 +23,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
+            android:background="#20222222"
             android:gravity="center"
             android:text="@string/game_title"
             android:textSize="20sp" />
@@ -35,6 +39,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="#20222222"
                 android:gravity="center"
                 android:text="@string/game_score"
                 android:textSize="20sp" />
@@ -45,6 +50,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="#30224466"
                 android:gravity="center"
                 android:text="0"
                 android:textSize="20sp" />
@@ -62,6 +68,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="#20222222"
                 android:gravity="center"
                 android:text="@string/game_best"
                 android:textSize="20sp" />
@@ -72,6 +79,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="#30224466"
                 android:gravity="center"
                 android:text="0"
                 android:textSize="20sp" />
@@ -80,12 +88,40 @@
 
     </LinearLayout>
 
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:ellipsize="marquee"-->
+    <!--android:focusable="true"-->
+    <!--android:focusableInTouchMode="true"-->
+    <!--android:gravity="center_vertical|start"-->
+    <!--android:marqueeRepeatLimit="marquee_forever"-->
+    <!--android:scrollHorizontally="true"-->
+    <!--android:singleLine="true"-->
+    <!--android:text="@string/message_test"-->
+    <!--android:textIsSelectable="true" />-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_centerVertical="true"
+        android:layout_weight="2"
+        android:background="#00000000"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:scrollbars="none">
+
+    </android.support.v7.widget.RecyclerView>
+
     <com.example.agentzengyu.zy2048.view.SquareView
         android:id="@+id/svGame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_weight="10" />
 
 </LinearLayout>

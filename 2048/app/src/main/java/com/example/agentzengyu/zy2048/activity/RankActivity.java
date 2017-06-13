@@ -27,7 +27,6 @@ public class RankActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rank);
-        application = (ZY2048Application) getApplication();
         initVariable();
         initView();
         setData();
@@ -37,6 +36,7 @@ public class RankActivity extends AppCompatActivity {
      * 初始化变量
      */
     private void initVariable() {
+        application = (ZY2048Application) getApplication();
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         adapter = new RankAdapter(this, records);

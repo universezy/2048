@@ -10,10 +10,14 @@
     <string name="game_score">SCORE</string>
     <string name="game_best">BEST</string>
 
-    <string name="about_author">Author\nZeng Yu\nUESTC</string>
+    <string name="about_author">Author\nZeng Yu @UESTC</string>
     <string name="about_copyright">Copyright\n©2017\nAll Rights Reserved</string>
     <string name="about_blog">Blog\nhttp://blog.csdn.net/zy13608089849</string>
     <string name="about_github">Github\nhttps://github.com/13608089849</string>
+
+    <string name="message_rule">Slide view to combine two same numbers.</string>
+    <string name="message_tips">Try to move the biggest number to corner.</string>
+    <string name="message_test">                                       </string>
 
     <string name="popupwindow_no_archive">No Archive</string>
     <string name="popupwindow_game_over">Game Over</string>

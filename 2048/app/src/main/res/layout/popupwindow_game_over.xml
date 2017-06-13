@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="240dp"
-    android:background="@drawable/popupwindow_corner"
+    android:background="@mipmap/gameover"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -12,6 +12,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/popupwindow_game_over"
+        android:textColor="@color/darkred"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -27,6 +28,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/popupwindow_score"
+            android:textColor="@color/darkred"
             android:textSize="15sp" />
 
         <TextView
@@ -36,6 +38,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="@color/darkred"
             android:textSize="15sp" />
 
     </LinearLayout>
@@ -44,7 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <Button
             android:id="@+id/btnReturnInGameOver"
@@ -52,8 +57,9 @@
             android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:background="@mipmap/ic_launcher"
-            android:text="Return" />
+            android:background="@drawable/button"
+            android:text="Return"
+            android:textColor="@color/darkred" />
 
         <Button
             android:id="@+id/btnNewInGameOver"
@@ -61,7 +67,8 @@
             android:layout_height="match_parent"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            android:background="@mipmap/ic_launcher"
-            android:text="Again" />
+            android:background="@drawable/button"
+            android:text="Again"
+            android:textColor="@color/darkred" />
     </LinearLayout>
 </LinearLayout>
