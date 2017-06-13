@@ -21,7 +21,6 @@ public class RankActivity extends AppCompatActivity {
     private LinearLayoutManager manager;
     private RecyclerView recyclerView;
     private RankAdapter adapter;
-
     private ArrayList<Record> records = new ArrayList<>();
 
     @Override
@@ -55,7 +54,7 @@ public class RankActivity extends AppCompatActivity {
     }
 
     /**
-     * 设置排名数据
+     * 设置数据
      */
     private void setData() {
         records.addAll(application.getService().getRecords());

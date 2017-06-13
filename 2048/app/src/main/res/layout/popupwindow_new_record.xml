@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
-    android:layout_height="230dp"
+    android:layout_width="300dp"
+    android:layout_height="280dp"
     android:background="@drawable/popupwindow_corner"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="@string/popupwindow_new_record"
         android:textSize="20sp" />

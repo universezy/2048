@@ -30,8 +30,20 @@ public class SquareView extends View {
     private final int textStrokeWidth = 3;
     private float downX = 0, downY = 0;
 
+    public SquareView(Context context){
+        super(context);
+        application = (ZY2048Application) context.getApplicationContext();
+        setBackgroundColor(colorBackground);
+    }
+
     public SquareView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        application = (ZY2048Application) context.getApplicationContext();
+        setBackgroundColor(colorBackground);
+    }
+
+    public SquareView(Context context, AttributeSet attrs, int defStyle){
+        super(context,attrs,defStyle);
         application = (ZY2048Application) context.getApplicationContext();
         setBackgroundColor(colorBackground);
     }

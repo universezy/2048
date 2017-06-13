@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:paddingTop="50dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="50dp">
 
-    <ImageView
-        android:id="@+id/ivMenu"
+    <com.example.agentzengyu.zy2048.view.CircleImageView
+        android:id="@+id/civMenu"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/ic_launcher"
+        app:border_color="#ccc"
+        app:border_overlay="false"
+        app:border_width="2dp" />
 
     <Button
         android:id="@+id/btnMenu"
-        android:layout_marginTop="80dp"
         android:layout_width="200dp"
         android:layout_height="60dp"
+        android:layout_marginTop="80dp"
         android:background="#10000000"
-        android:textSize="20sp"
-        android:text="" />
+        android:text=""
+        android:textSize="20sp" />
 
 </LinearLayout>

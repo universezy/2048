@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private ZY2048Application application = null;
     private GameReceiver receiver;
+    private Handler handler;
+    private Runnable runnableGameOver,runnableNewRecord;
     private TextView mtvScore, mtvBest;
     private TextView mtvPopupwindowScore;
     private EditText metPopupwindowName;
@@ -42,12 +45,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        application = (ZY2048Application) getApplication();
         mode = getIntent().getIntExtra(Config.MODE, Config.NEW);
         initView();
-        receiver = new GameReceiver();
-        IntentFilter filter = new IntentFilter(Config.GAME);
-        registerReceiver(receiver, filter);
+        initVariable();
         startGame();
     }
 
@@ -64,6 +64,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mtvScore = (TextView) findViewById(R.id.tvScoreGameOver);
         mtvBest = (TextView) findViewById(R.id.tvBest);
         msvGame = (SquareView) findViewById(R.id.svGame);
+    }
+
+    /**
+     * 初始化变量
+     */
+    private void initVariable(){
+        application = (ZY2048Application) getApplication();
+        receiver = new GameReceiver();
+        IntentFilter filter = new IntentFilter(Config.GAME);
+        registerReceiver(receiver, filter);
+        handler = new Handler();
+        runnableGameOver = new Runnable() {
+            @Override
+            public void run() {
+                showGameOver();
+            }
+        };
+        runnableNewRecord = new Runnable() {
+            @Override
+            public void run() {
+                showNewRecord();
+            }
+        };
     }
 
     /**
@@ -109,7 +132,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         popupWindow.setOutsideTouchable(false);
         popupWindow.showAtLocation(msvGame, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.alpha = 0.3f;
+        layoutParams.alpha = 0.2f;
         getWindow().setAttributes(layoutParams);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -138,7 +161,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         popupWindow.showAtLocation(msvGame, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.alpha = 0.3f;
+        layoutParams.alpha = 0.2f;
         getWindow().setAttributes(layoutParams);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -168,7 +191,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         popupWindow.showAtLocation(msvGame, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.alpha = 0.3f;
+        layoutParams.alpha = 0.2f;
         getWindow().setAttributes(layoutParams);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -194,6 +217,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 application.getService().updateRecord(nameReturn);
             case R.id.btnReturnInNoArchive:
             case R.id.btnReturnInGameOver:
+                application.getService().clearGame();
                 popupWindow.dismiss();
                 finish();
                 break;
@@ -242,10 +266,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                     msvGame.invalidate();
                     break;
                 case Config.GAMEOVER:
-                    showGameOver();
+                    handler.postDelayed(runnableGameOver,1000);
                     break;
                 case Config.NEWRECORD:
-                    showNewRecord();
+                    handler.postDelayed(runnableNewRecord,1000);
                     break;
                 default:
                     break;

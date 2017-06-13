@@ -2,6 +2,7 @@ package com.example.agentzengyu.zy2048.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
@@ -26,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
+import static android.graphics.Color.parseColor;
 
 /**
  * 游戏后台服务,处理游戏数据
@@ -203,6 +206,8 @@ public class ZY2048Service extends Service {
                         squares.get(indexs[j]).setNumber(squares.get(indexs[j + 1]).getNumber());
                     }
                     squares.get(indexs[3]).setNumber(0);
+                    squares.get(indexs[3]).setTextColor(selectTextColor(score));
+                    squares.get(indexs[3]).setBackgroundColor(selectBackgroundColor(score));
                 }
             }
         }
@@ -249,7 +254,7 @@ public class ZY2048Service extends Service {
      * 初始化记录
      */
     private void initRecord() {
-        Log.e("initRecord","----------");
+        Log.e("initRecord", "----------");
         JSONArray jsonArray = null;
         String jsonArrayString = "";
         records.clear();
@@ -292,16 +297,24 @@ public class ZY2048Service extends Service {
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
+        for (Record record : records) {
+            Log.e("getName", record.getName());
+            Log.e("getTime", record.getTime());
+            Log.e("getRank", "" + record.getRank());
+            Log.e("getScore", "" + record.getScore());
+        }
+        Log.e("BEST", "" + BEST);
+        Log.e("LOWEST", "" + LOWEST);
     }
 
     /**
      * 初始化游戏
      */
     private void initGame() {
-        Log.e("initGame","----------");
+        Log.e("initGame", "----------");
         JSONArray jsonArray = null;
         String jsonArrayString = "";
-        records.clear();
+        squares.clear();
         File fileGame = new File(getFilesDir(), "game.txt");
         try {
             if (!fileGame.exists()) {
@@ -318,10 +331,8 @@ public class ZY2048Service extends Service {
             jsonArrayString += buffer.toString();
             inputStreamGame.close();
             jsonArray = new JSONArray(jsonArrayString);
-            if (jsonArray != null) {
-                if (jsonArray.length() == 0) {
-                    return;
-                } else if (jsonArray.length() == 17) {
+            if (jsonArray != null && jsonArray.length() == 17) {
+                if (jsonArray.length() == 17) {
                     for (int i = 0; i < 16; i++) {
                         Square square = new Gson().fromJson(jsonArray.get(i).toString(), Square.class);
                         squares.add(i, square);
@@ -337,6 +348,10 @@ public class ZY2048Service extends Service {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        for (Square square : squares) {
+            Log.e("getNumber", "" + square.getNumber());
+        }
+        Log.e("SCORE", "" + SCORE);
     }
 
     /**
@@ -344,7 +359,7 @@ public class ZY2048Service extends Service {
      */
     private void startGame() {
 //        initRecord();
-        Log.e("startGame","----------");
+        Log.e("startGame", "----------");
         Intent intent = new Intent(Config.GAME);
         intent.putExtra(Config.STATE, Config.INITIALIZE);
         intent.putExtra(Config.BEST, BEST);
@@ -357,7 +372,7 @@ public class ZY2048Service extends Service {
      * 更新游戏
      */
     private void updateGame() {
-        Log.e("updateGame","----------");
+        Log.e("updateGame", "----------");
         Intent intent = new Intent(Config.GAME);
         intent.putExtra(Config.STATE, Config.UPDATE);
         intent.putExtra(Config.SCORE, SCORE);
@@ -370,8 +385,7 @@ public class ZY2048Service extends Service {
      */
     private void checkEnd(boolean equal) {
         if (equal) return;
-        boolean end = true;
-        boolean sameNumber = false;
+        boolean end = true, sameNumber = false;
         for (int i = 0; i < 12; i++) {
             int index = new Random().nextInt(12);
             int temp = indexs[i];
@@ -410,7 +424,7 @@ public class ZY2048Service extends Service {
         }
         if (end) {
             Intent intent = new Intent(Config.GAME);
-            if (SCORE > LOWEST) {
+            if (SCORE > LOWEST || records.size() < 16) {
                 intent.putExtra(Config.STATE, Config.NEWRECORD);
             } else {
                 intent.putExtra(Config.STATE, Config.GAMEOVER);
@@ -420,13 +434,22 @@ public class ZY2048Service extends Service {
     }
 
     /**
+     * 清除历史游戏记录
+     */
+    public void clearGame() {
+        squares.clear();
+        SCORE = 0;
+        saveGame();
+    }
+
+    /**
      * 更新记录
      *
      * @param name 玩家名
      */
     public void updateRecord(String name) {
-        Log.e("updateRecord","----------");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Log.e("updateRecord", "----------");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd  HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         String time = dateFormat.format(date);
         Record record = new Record();
@@ -461,7 +484,7 @@ public class ZY2048Service extends Service {
      * 保存记录
      */
     public void saveRecord() {
-        Log.e("saveRecord","----------");
+        Log.e("saveRecord", "----------");
         File fileRecord = new File(getFilesDir(), "record.txt");
         try {
             if (!fileRecord.exists())
@@ -480,6 +503,7 @@ public class ZY2048Service extends Service {
             outputStreamRecord.write(bytesRecord);
             outputStreamRecord.flush();
             outputStreamRecord.close();
+            Log.e("saveRecord", "successful");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -493,7 +517,7 @@ public class ZY2048Service extends Service {
      * 保存游戏
      */
     public void saveGame() {
-        Log.e("saveGame","----------");
+        Log.e("saveGame", "----------");
         File fileGame = new File(getFilesDir(), "game.txt");
         try {
             if (!fileGame.exists())
@@ -503,6 +527,8 @@ public class ZY2048Service extends Service {
             for (Square square : squares) {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("number", square.getNumber());
+                jsonObject.put("textColor", square.getTextColor());
+                jsonObject.put("backgroundColor", square.getBackgroundColor());
                 jsonArrayGame.put(jsonArrayGame.length(), jsonObject);
             }
             Score score = new Score();
@@ -514,6 +540,7 @@ public class ZY2048Service extends Service {
             outputStreamGame.write(bytesGame);
             outputStreamGame.flush();
             outputStreamGame.close();
+            Log.e("saveGame", "successful");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -521,5 +548,86 @@ public class ZY2048Service extends Service {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private int selectBackgroundColor(int number) {
+        int backgroundColor = parseColor("#ffd700");
+        switch (number) {
+            case 0:
+                backgroundColor = Color.parseColor("#ffffff");
+                break;
+            case 2:
+                backgroundColor = Color.parseColor("#ffffbf");
+                break;
+            case 4:
+                backgroundColor = Color.parseColor("#ffff7f");
+                break;
+            case 8:
+                backgroundColor = Color.parseColor("#ffff3f");
+                break;
+            case 16:
+                backgroundColor = Color.parseColor("#ffff00");
+                break;
+            case 32:
+                backgroundColor = Color.parseColor("#ffbf00");
+                break;
+            case 64:
+                backgroundColor = Color.parseColor("#ff7f00");
+                break;
+            case 128:
+                backgroundColor = Color.parseColor("#ff3f00");
+                break;
+            case 256:
+                backgroundColor = Color.parseColor("#ff0000");
+                break;
+            case 512:
+                backgroundColor = Color.parseColor("#bf0000");
+                break;
+            case 1024:
+                backgroundColor = Color.parseColor("#7f0000");
+                break;
+            case 2048:
+                backgroundColor = Color.parseColor("#3f0000");
+                break;
+            case 4096:
+                backgroundColor = Color.parseColor("#000000");
+                break;
+            default:
+                break;
+        }
+        return backgroundColor;
+    }
+
+    private int selectTextColor(int number) {
+        int textCoor = parseColor("#000000");
+        switch (number) {
+            case 0:
+                textCoor = parseColor("#ffffff");
+                break;
+            case 2:
+            case 4:
+                break;
+            case 8:
+            case 16:
+                textCoor = parseColor("#ffffff");
+                break;
+            case 32:
+            case 64:
+                break;
+            case 128:
+            case 256:
+                textCoor = parseColor("#ffffff");
+                break;
+            case 512:
+            case 1024:
+                break;
+            case 2048:
+            case 4096:
+                textCoor = parseColor("#ffffff");
+                break;
+            default:
+                break;
+        }
+        return textCoor;
     }
 }

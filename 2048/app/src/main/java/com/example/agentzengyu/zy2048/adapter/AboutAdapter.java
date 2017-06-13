@@ -40,8 +40,8 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHol
 
     @Override
     public void onBindViewHolder(AboutAdapter.AboutViewHolder holder, int position) {
-        holder.getMtvAbout().setText(title[position % 4]);
         holder.getMtvAbout().setBackgroundResource(icon[position % 4]);
+        holder.getMtvAbout().setText(title[position % 4]);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHol
      * 设置数据
      */
     public void setData() {
-        icon = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher};
+        icon = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
         title = new String[]{resources.getString(R.string.about_author), resources.getString(R.string.about_copyright), resources.getString(R.string.about_blog), resources.getString(R.string.about_github)};
     }
 

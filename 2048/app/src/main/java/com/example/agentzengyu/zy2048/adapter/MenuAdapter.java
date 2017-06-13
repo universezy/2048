@@ -8,13 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.example.agentzengyu.zy2048.R;
 import com.example.agentzengyu.zy2048.activity.AboutActivity;
 import com.example.agentzengyu.zy2048.activity.GameActivity;
 import com.example.agentzengyu.zy2048.activity.RankActivity;
 import com.example.agentzengyu.zy2048.app.Config;
+import com.example.agentzengyu.zy2048.view.CircleImageView;
 
 /**
  * Created by Agent ZengYu on 2017/6/8.
@@ -47,7 +47,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     @Override
     public void onBindViewHolder(MenuViewHolder holder, int position) {
-        holder.getMivMenu().setImageResource(icon[position % 4]);
+        holder.getMcivMenu().setImageResource(icon[position % 4]);
         holder.getMbtnMenu().setText(title[position % 4]);
         holder.getMbtnMenu().setTag(position % 4);
     }
@@ -82,7 +82,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
      * 设置数据
      */
     public void setData() {
-        icon = new int[]{R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round, R.mipmap.ic_launcher_round};
+        icon = new int[]{R.mipmap.bd, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
         title = new String[]{resources.getString(R.string.menu_new), resources.getString(R.string.menu_continue), resources.getString(R.string.menu_rank), resources.getString(R.string.menu_about)};
     }
 
@@ -90,12 +90,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
      * 菜单页面容器
      */
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mivMenu;
+        private CircleImageView mcivMenu;
         private Button mbtnMenu;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
-            mivMenu = (ImageView) itemView.findViewById(R.id.ivMenu);
+            mcivMenu = (CircleImageView) itemView.findViewById(R.id.civMenu);
             mbtnMenu = (Button) itemView.findViewById(R.id.btnMenu);
             mbtnMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,8 +126,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             });
         }
 
-        public ImageView getMivMenu() {
-            return mivMenu;
+        public CircleImageView getMcivMenu() {
+            return mcivMenu;
         }
 
         public Button getMbtnMenu() {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleImageView">
+        <!-- 边框宽度，默认为0 -->
+        <attr name="border_width" format="dimension" />
+        <!-- 边框颜色，默认黑色 -->
+        <attr name="border_color" format="color" />
+        <!-- 边框是否覆盖图片，默认否 -->
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+</resources>
