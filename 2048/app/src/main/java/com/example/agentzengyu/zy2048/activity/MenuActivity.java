@@ -43,6 +43,12 @@ public class MenuActivity extends AppCompatActivity {
         unbindService(connection);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,R.anim.activity_out);
+    }
+
     /**
      * 初始化变量
      */

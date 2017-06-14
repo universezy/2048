@@ -25,7 +25,7 @@ public class SquareView extends View {
     private ZY2048Application application = null;
     private ArrayList<Square> squares = new ArrayList<>();
     private int colorOutside = Color.parseColor("#00000000");
-    private int colorBackground = Color.parseColor("#9a9a9a");
+    private int colorBackground = Color.parseColor("#509a9a9a");
     private final int padding = 20;
     private final int textStrokeWidth = 3;
     private float downX = 0, downY = 0;

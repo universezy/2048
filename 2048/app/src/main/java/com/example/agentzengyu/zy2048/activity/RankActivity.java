@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.example.agentzengyu.zy2048.R;
 import com.example.agentzengyu.zy2048.adapter.RankAdapter;
@@ -20,6 +21,7 @@ public class RankActivity extends AppCompatActivity {
     private ZY2048Application application = null;
     private LinearLayoutManager manager;
     private RecyclerView recyclerView;
+    private TextView mtvBest;
     private RankAdapter adapter;
     private ArrayList<Record> records = new ArrayList<>();
 
@@ -46,6 +48,7 @@ public class RankActivity extends AppCompatActivity {
      * 初始化布局
      */
     private void initView() {
+        mtvBest = (TextView)findViewById(R.id.tvBest);
         recyclerView = (RecyclerView) findViewById(R.id.rvRank);
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(manager);
@@ -57,7 +60,14 @@ public class RankActivity extends AppCompatActivity {
      * 设置数据
      */
     private void setData() {
+        mtvBest.setText(String.valueOf(application.getService().getBest()));
         records.addAll(application.getService().getRecords());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,R.anim.activity_out);
     }
 }

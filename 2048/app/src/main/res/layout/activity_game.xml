@@ -26,13 +26,15 @@
             android:background="#20222222"
             android:gravity="center"
             android:text="@string/game_title"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:typeface="monospace" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:typeface="monospace">
 
             <TextView
                 android:layout_width="match_parent"
@@ -53,7 +55,8 @@
                 android:background="#30224466"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:typeface="monospace" />
 
         </LinearLayout>
 
@@ -71,7 +74,8 @@
                 android:background="#20222222"
                 android:gravity="center"
                 android:text="@string/game_best"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:typeface="monospace" />
 
             <TextView
                 android:id="@+id/tvBest"
@@ -82,7 +86,8 @@
                 android:background="#30224466"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:typeface="monospace" />
 
         </LinearLayout>
 
@@ -107,9 +112,12 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:layout_weight="1"
+        android:background="#00000000"
         android:gravity="center_vertical|start"
         android:text="Message"
-        android:textSize="18sp" />
+        android:textColor="@color/gray"
+        android:textSize="18sp"
+        android:typeface="monospace" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMessage"
@@ -129,6 +137,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_weight="10" />
+        android:layout_weight="10"
+        android:background="#00000000" />
 
 </LinearLayout>

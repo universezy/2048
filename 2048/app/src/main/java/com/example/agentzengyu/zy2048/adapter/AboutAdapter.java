@@ -1,6 +1,5 @@
 package com.example.agentzengyu.zy2048.adapter;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.agentzengyu.zy2048.R;
+import com.example.agentzengyu.zy2048.activity.AboutActivity;
 
 /**
  * Created by Agent ZengYu on 2017/6/9.
@@ -18,13 +18,13 @@ import com.example.agentzengyu.zy2048.R;
  * 关于页面适配器
  */
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.AboutViewHolder>  {
-    private Context context;
+    private AboutActivity context;
     private LayoutInflater inflater;
     private Resources resources;
     private int[] icon;
     private String[] title;
 
-    public AboutAdapter(Context context) {
+    public AboutAdapter(AboutActivity context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         resources = context.getResources();

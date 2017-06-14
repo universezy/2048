@@ -120,6 +120,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(adapter);
         recyclerView.scrollToPosition(4);
         msvGame = (SquareView) findViewById(R.id.svGame);
+        popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        popupWindow.setTouchable(true);
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        popupWindow.setAnimationStyle(R.style.anim_popopwindow);
     }
 
     /**
@@ -166,10 +173,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         View view = getLayoutInflater().inflate(R.layout.popupwindow_no_archive, null);
         view.findViewById(R.id.btnReturnInNoArchive).setOnClickListener(this);
         view.findViewById(R.id.btnNewInNoArchive).setOnClickListener(this);
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setFocusable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.setOutsideTouchable(false);
+        popupWindow.setContentView(view);
         popupWindow.showAtLocation(msvGame, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.alpha = 0.2f;
@@ -193,12 +197,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         view.findViewById(R.id.btnNewInGameOver).setOnClickListener(this);
         mtvPopupwindowScore = (TextView) view.findViewById(R.id.tvScoreInGameOver);
         mtvPopupwindowScore.setText(String.valueOf(SCORE));
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setFocusable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        popupWindow.setContentView(view);
         popupWindow.showAtLocation(msvGame, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.alpha = 0.2f;
@@ -223,12 +222,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         mtvPopupwindowScore = (TextView) view.findViewById(R.id.tvScoreInNewRecord);
         mtvPopupwindowScore.setText(String.valueOf(SCORE));
         metPopupwindowName = (EditText) view.findViewById(R.id.etNameInNewRecord);
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow.setFocusable(true);
-        popupWindow.setTouchable(true);
-        popupWindow.setOutsideTouchable(false);
-        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        popupWindow.setContentView(view);
         popupWindow.showAtLocation(msvGame, Gravity.CENTER, 0, 0);
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.alpha = 0.2f;
@@ -247,6 +241,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         super.onBackPressed();
         application.getService().saveGame();
+        overridePendingTransition(0,R.anim.activity_out);
     }
 
     @Override
@@ -260,6 +255,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 application.getService().clearGame();
                 popupWindow.dismiss();
                 finish();
+                overridePendingTransition(0,R.anim.activity_out);
                 break;
             case R.id.btnNewInNewRecord:
                 String nameNew = metPopupwindowName.getText().toString().trim();

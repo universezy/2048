@@ -4,7 +4,6 @@ package com.example.agentzengyu.zy2048.adapter;
  * Created by Agent ZengYu on 2017/6/13.
  */
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,17 +12,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.agentzengyu.zy2048.R;
+import com.example.agentzengyu.zy2048.activity.GameActivity;
 
 /**
  * 消息适配器
  */
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
-    private Context context;
+    private GameActivity context;
     private LayoutInflater inflater;
     private Resources resources;
     private String[] message;
 
-    public MessageAdapter(Context context) {
+    public MessageAdapter(GameActivity context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         resources = context.getResources();

@@ -1,6 +1,5 @@
 package com.example.agentzengyu.zy2048.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import com.example.agentzengyu.zy2048.R;
 import com.example.agentzengyu.zy2048.activity.AboutActivity;
 import com.example.agentzengyu.zy2048.activity.GameActivity;
+import com.example.agentzengyu.zy2048.activity.MenuActivity;
 import com.example.agentzengyu.zy2048.activity.RankActivity;
 import com.example.agentzengyu.zy2048.app.Config;
 import com.example.agentzengyu.zy2048.view.CircleImageView;
@@ -24,14 +24,14 @@ import com.example.agentzengyu.zy2048.view.CircleImageView;
  * 菜单页面适配器
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> implements View.OnClickListener {
-    private Context context;
+    private MenuActivity context;
     private LayoutInflater inflater;
     private OnRecycleViewItemClickListener listener;
     private Resources resources;
     private int[] icon;
     private String[] title;
 
-    public MenuAdapter(Context context) {
+    public MenuAdapter(MenuActivity context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         resources = context.getResources();
@@ -82,7 +82,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
      * 设置数据
      */
     public void setData() {
-        icon = new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+        icon = new int[]{R.mipmap.big_new, R.mipmap.big_continue, R.mipmap.big_rank, R.mipmap.big_about};
         title = new String[]{resources.getString(R.string.menu_new), resources.getString(R.string.menu_continue), resources.getString(R.string.menu_rank), resources.getString(R.string.menu_about)};
     }
 
@@ -105,19 +105,23 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                             Intent intentNew = new Intent(context, GameActivity.class);
                             intentNew.putExtra(Config.MODE,Config.NEW);
                             context.startActivity(intentNew);
+                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
                             break;
                         case Config.CONTINUE:
                             Intent intentContinue = new Intent(context, GameActivity.class);
                             intentContinue.putExtra(Config.MODE,Config.CONTINUE);
                             context.startActivity(intentContinue);
+                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
                             break;
                         case Config.RANK:
                             Intent intentRank = new Intent(context, RankActivity.class);
                             context.startActivity(intentRank);
+                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
                             break;
                         case Config.ABOUT:
                             Intent intentAbout = new Intent(context, AboutActivity.class);
                             context.startActivity(intentAbout);
+                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
                             break;
                         default:
                             break;

@@ -19,16 +19,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        initView();
         setVariable();
         setAction();
-    }
-
-    /**
-     * 初始化布局
-     */
-    private void initView() {
-
     }
 
     /**
@@ -41,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void run() {
                 Intent intentMainActivity = new Intent(WelcomeActivity.this, MenuActivity.class);
                 startActivity(intentMainActivity);
+                overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
                 finish();
             }
         };

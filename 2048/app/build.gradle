@@ -23,11 +23,11 @@ android {
             def fileName
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 if (variant.buildType.name.equals('release')) {
-                    fileName = "2048(release).apk"
+                    fileName = "2048.apk"
                     //  fileName = "RELEASE${defaultConfig.versionName}.${getTime()}.apk"
                 } else if (variant.buildType.name.equals('debug')) {
                     //  fileName = "DEBUG${defaultConfig.versionName}.${getTime()}.apk"
-                    fileName = "2048(debug).apk"
+                    fileName = "2048.apk"
                 }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
@@ -49,6 +49,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
     testCompile 'junit:junit:4.12'
 }

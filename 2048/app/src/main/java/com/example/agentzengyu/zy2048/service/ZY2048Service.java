@@ -76,6 +76,15 @@ public class ZY2048Service extends Service {
     }
 
     /**
+     * 获取最高记录
+     *
+     * @return
+     */
+    public int getBest() {
+        return this.BEST;
+    }
+
+    /**
      * 向左
      */
     public void onLeft() {

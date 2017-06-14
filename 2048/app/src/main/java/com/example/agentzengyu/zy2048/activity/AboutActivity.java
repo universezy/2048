@@ -35,6 +35,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
         super.onDestroy();
         run = false;
         handler.removeCallbacks(runnable);
@@ -92,5 +93,11 @@ public class AboutActivity extends AppCompatActivity {
      */
     private void startAutoShow() {
         handler.postDelayed(runnable, 1000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(0,R.anim.activity_out);
     }
 }

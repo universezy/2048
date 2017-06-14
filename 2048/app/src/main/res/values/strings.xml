@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ZY2048</string>
 
-    <string name="menu_new">New</string>
-    <string name="menu_continue">Continue</string>
+    <string name="menu_new">Play</string>
+    <string name="menu_continue">Play</string>
     <string name="menu_rank">Rank</string>
     <string name="menu_about">About</string>
 

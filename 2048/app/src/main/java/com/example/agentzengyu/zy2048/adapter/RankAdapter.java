@@ -1,6 +1,5 @@
 package com.example.agentzengyu.zy2048.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.agentzengyu.zy2048.R;
+import com.example.agentzengyu.zy2048.activity.RankActivity;
 import com.example.agentzengyu.zy2048.entity.Record;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ import java.util.ArrayList;
  * 排名页面适配器
  */
 public class RankAdapter extends RecyclerView.Adapter<RankAdapter.RankViewHolder> {
-    private Context context;
+    private RankActivity context;
     private LayoutInflater inflater;
     private ArrayList<Record> records;
 
-    public RankAdapter(Context context, ArrayList<Record> records) {
+    public RankAdapter(RankActivity context, ArrayList<Record> records) {
         this.context = context;
         this.records = records;
         inflater = LayoutInflater.from(context);

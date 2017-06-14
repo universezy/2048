@@ -12,7 +12,7 @@
         android:id="@+id/civMenu"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/main"
         app:border_color="#80000000"
         app:border_overlay="false"
         app:border_width="5dp" />
@@ -23,8 +23,9 @@
         android:layout_height="60dp"
         android:layout_marginTop="80dp"
         android:background="@drawable/button"
+
         android:text=""
-        android:textColor="#6a5acd"
+        android:textColor="#706a5acd"
         android:textSize="20sp" />
 
 </LinearLayout>
