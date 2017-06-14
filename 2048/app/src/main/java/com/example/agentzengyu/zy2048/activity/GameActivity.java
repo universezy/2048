@@ -241,7 +241,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         super.onBackPressed();
         application.getService().saveGame();
-        overridePendingTransition(0,R.anim.activity_out);
+        overridePendingTransition(0, R.anim.activity_out);
     }
 
     @Override
@@ -255,7 +255,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 application.getService().clearGame();
                 popupWindow.dismiss();
                 finish();
-                overridePendingTransition(0,R.anim.activity_out);
+                overridePendingTransition(0, R.anim.activity_out);
                 break;
             case R.id.btnNewInNewRecord:
                 String nameNew = metPopupwindowName.getText().toString().trim();

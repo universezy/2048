@@ -92,7 +92,7 @@ public class AboutActivity extends AppCompatActivity {
      * recyclerView自动播放
      */
     private void startAutoShow() {
-        handler.postDelayed(runnable, 1000);
+        handler.postDelayed(runnable, 1500);
     }
 
     @Override

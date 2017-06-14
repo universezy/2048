@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.example.agentzengyu.zy2048.R;
@@ -53,6 +55,22 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     }
 
     @Override
+    public void onViewAttachedToWindow(MenuViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        View view = holder.itemView;
+        Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.item_menu_in);
+        view.startAnimation(animation);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(MenuViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        View view = holder.itemView;
+        Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.item_menu_out);
+        view.startAnimation(animation);
+    }
+
+    @Override
     public int getItemCount() {
         return Integer.MAX_VALUE;
     }
@@ -65,6 +83,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     /**
      * item点击监听
+     *
      * @param listener
      */
     public void setItemClickListener(OnRecycleViewItemClickListener listener) {
@@ -103,25 +122,25 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                     switch ((int) mbtnMenu.getTag()) {
                         case Config.NEW:
                             Intent intentNew = new Intent(context, GameActivity.class);
-                            intentNew.putExtra(Config.MODE,Config.NEW);
+                            intentNew.putExtra(Config.MODE, Config.NEW);
                             context.startActivity(intentNew);
-                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                            context.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Config.CONTINUE:
                             Intent intentContinue = new Intent(context, GameActivity.class);
-                            intentContinue.putExtra(Config.MODE,Config.CONTINUE);
+                            intentContinue.putExtra(Config.MODE, Config.CONTINUE);
                             context.startActivity(intentContinue);
-                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                            context.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Config.RANK:
                             Intent intentRank = new Intent(context, RankActivity.class);
                             context.startActivity(intentRank);
-                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                            context.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         case Config.ABOUT:
                             Intent intentAbout = new Intent(context, AboutActivity.class);
                             context.startActivity(intentAbout);
-                            context.overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                            context.overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
                             break;
                         default:
                             break;

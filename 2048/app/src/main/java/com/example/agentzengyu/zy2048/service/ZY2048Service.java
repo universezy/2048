@@ -362,7 +362,6 @@ public class ZY2048Service extends Service {
      * 开始游戏
      */
     private void startGame() {
-//        initRecord();
         Log.e("startGame", "----------");
         Intent intent = new Intent(Config.GAME);
         intent.putExtra(Config.STATE, Config.INITIALIZE);
@@ -390,6 +389,7 @@ public class ZY2048Service extends Service {
     private void checkEnd(boolean equal) {
         if (equal) return;
         boolean end = true, sameNumber = false;
+        //随机在边界插入新数字
         for (int i = 0; i < 12; i++) {
             int index = new Random().nextInt(12);
             int temp = indexs[i];
@@ -403,6 +403,15 @@ public class ZY2048Service extends Service {
             }
         }
         updateGame();
+        //当前矩阵信息
+        for (int y = 0; y < 4; y++) {
+            String s = "";
+            for (int x = 0; x < 4; x++) {
+                s += (squares.get(y * 4 + x).getNumber() + ",");
+            }
+            Log.e("s", s + "     =================");
+        }
+        //水平遍历是是否有可合并项
         for (int y = 0; y < 4; y++) {
             if (!sameNumber) {
                 for (int x = 0; x < 3; x++) {
@@ -415,12 +424,14 @@ public class ZY2048Service extends Service {
             } else
                 break;
         }
+        //垂直遍历是是否有可合并项
         for (int x = 0; x < 4; x++) {
             if (!sameNumber) {
                 for (int y = 0; y < 3; y++) {
                     if (squares.get(4 * y + x).getNumber() == squares.get(4 * y + 4 + x).getNumber()) {
                         end = false;
                         sameNumber = true;
+                        break;
                     }
                 }
             } else

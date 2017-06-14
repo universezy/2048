@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.example.agentzengyu.zy2048.R;
 import com.example.agentzengyu.zy2048.adapter.MenuAdapter;
@@ -46,14 +46,14 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(0,R.anim.activity_out);
+        overridePendingTransition(0, R.anim.welcome_out);
     }
 
     /**
      * 初始化变量
      */
     private void initVariable() {
-        application = (ZY2048Application)getApplication();
+        application = (ZY2048Application) getApplication();
         application.addActivity(this);
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -68,7 +68,7 @@ public class MenuActivity extends AppCompatActivity {
         new PagerSnapHelper().attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(4);
+        recyclerView.scrollToPosition(1024);
     }
 
     /**
@@ -79,7 +79,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 binder = (ZY2048Service.ServiceBinder) service;  //获取其实例
-                Toast.makeText(MenuActivity.this, "Service has started.", Toast.LENGTH_SHORT).show();
+                Log.e("Service", "Service has started.");
             }
 
             @Override

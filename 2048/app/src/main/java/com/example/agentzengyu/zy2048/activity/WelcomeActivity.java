@@ -33,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void run() {
                 Intent intentMainActivity = new Intent(WelcomeActivity.this, MenuActivity.class);
                 startActivity(intentMainActivity);
-                overridePendingTransition(R.anim.activity_in,R.anim.activity_out);
+                overridePendingTransition(R.anim.welcome_in, R.anim.welcome_out);
                 finish();
             }
         };
