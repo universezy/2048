@@ -23,7 +23,6 @@
         android:layout_height="60dp"
         android:layout_marginTop="80dp"
         android:background="@drawable/button"
-
         android:text=""
         android:textColor="#706a5acd"
         android:textSize="20sp" />

@@ -29,6 +29,13 @@ public class SquareView extends View {
     private final int padding = 20;
     private final int textStrokeWidth = 3;
     private float downX = 0, downY = 0;
+    private boolean init = true;
+    private float width,height;
+    private float viewSide,squareSide;
+    private float startX,startY;
+
+    private Paint paint;
+    private RectF rectF;
 
     public SquareView(Context context){
         super(context);
@@ -57,26 +64,29 @@ public class SquareView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        RectF rectF = new RectF();
+        if (init){
+            paint = new Paint();
+            paint.setAntiAlias(true);
+            rectF = new RectF();
+            width = this.getWidth();
+            height = this.getHeight();
+            viewSide = Math.min(width, height);
+            squareSide = (viewSide - 5 * padding) / 4;
+            startX = (width - viewSide) / 2;
+            startY = height - viewSide;
 
-        float width = this.getWidth();
-        float height = this.getHeight();
-        float viewSide = Math.min(width, height);
-        float squareSide = (viewSide - 5 * padding) / 4;
-        float startX = (width - viewSide) / 2;
-        float startY = height - viewSide;
+            //整个视图背景
+            rectF.set(0, 0, width, height);
+            paint.setColor(colorOutside);
+            canvas.drawRect(rectF, paint);
 
-        //整个视图背景
-        rectF.set(0, 0, width, height);
-        paint.setColor(colorOutside);
-        canvas.drawRect(rectF, paint);
+            //方块界面背景
+            rectF.set(startX, startY, startX + viewSide, startY + viewSide);
+            paint.setColor(colorBackground);
+            canvas.drawRect(rectF, paint);
 
-        //方块界面背景
-        rectF.set(startX, startY, startX + viewSide, startY + viewSide);
-        paint.setColor(colorBackground);
-        canvas.drawRect(rectF, paint);
+            init = false;
+        }
 
         //小方块
         if (squares.size() == 16) {

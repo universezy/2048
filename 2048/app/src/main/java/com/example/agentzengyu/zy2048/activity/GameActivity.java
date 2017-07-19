@@ -63,8 +63,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onDestroy() {
-        unregisterReceiver(receiver);
         super.onDestroy();
+        unregisterReceiver(receiver);
         run = false;
         handlerGame.removeCallbacks(runnableNewRecord);
         handlerGame.removeCallbacks(runnableGameOver);
