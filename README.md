@@ -6,6 +6,8 @@ Android game 2048.
 
 It majored in designing algorithm, animation and custom-view.
 
+[Download apk and play game](https://github.com/13608089849/2048/raw/master/2048.apk "Download")
+
 ----
 
 ## Screenshot
