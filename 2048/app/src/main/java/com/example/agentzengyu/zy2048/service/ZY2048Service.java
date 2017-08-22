@@ -493,6 +493,7 @@ public class ZY2048Service extends Service {
             }
             saveRecord();
         }
+        BEST = records.get(0).getScore();
     }
 
     /**
